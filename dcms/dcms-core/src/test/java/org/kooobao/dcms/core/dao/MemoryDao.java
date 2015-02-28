@@ -1,6 +1,8 @@
 package org.kooobao.dcms.core.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.kooobao.common.dao.Dao;
@@ -28,4 +30,15 @@ public class MemoryDao<T extends Entity> implements Dao<T> {
 		return obj;
 	}
 
+	@Override
+	public org.kooobao.common.dao.Dao.Cursor<T> all() {
+		return null;
+	}
+
+	@Override
+	public List<T> allatonce() {
+		List<T> list = new ArrayList<T>();
+		list.addAll(cache.values());
+		return list;
+	}
 }
