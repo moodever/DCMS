@@ -19,7 +19,7 @@ import org.kooobao.common.dao.Entity;
 @Table(name = "dcms_child")
 public class Child extends Entity {
 
-	@Column(name = "first_name")
+	@Column(name = "first_name",columnDefinition="INTEGER(10)")
 	private String firstName;
 
 	@Column(name = "middle_name")
