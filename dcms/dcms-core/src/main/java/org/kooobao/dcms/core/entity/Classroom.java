@@ -2,15 +2,29 @@ package org.kooobao.dcms.core.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.kooobao.common.dao.Entity;
 
+@javax.persistence.Entity
+@Table(name = "dcms_classroom")
 public class Classroom extends Entity {
 
+	@Column(name = "name")
 	private String name;
-	private int grade;
-	private int studentNum;
-	private int compacity;
 
+	@Column(name = "grade")
+	private int grade;
+
+	@Column(name = "student_num")
+	private int studentNum;
+
+	@Column(name = "capacity")
+	private int capacity;
+
+	@OneToMany(mappedBy = "classroom")
 	private List<Enrollment> enrollments;
 
 	public List<Enrollment> getEnrollments() {
@@ -29,12 +43,12 @@ public class Classroom extends Entity {
 		this.studentNum = studentNum;
 	}
 
-	public int getCompacity() {
-		return compacity;
+	public int getCapacity() {
+		return capacity;
 	}
 
-	public void setCompacity(int compacity) {
-		this.compacity = compacity;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 
 	public String getName() {

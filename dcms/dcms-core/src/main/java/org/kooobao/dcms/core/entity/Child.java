@@ -3,30 +3,57 @@ package org.kooobao.dcms.core.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.kooobao.common.dao.Entity;
 
+@javax.persistence.Entity
+@Table(name = "dcms_child")
 public class Child extends Entity {
 
+	@Column(name = "first_name")
 	private String firstName;
-	private String middleName;
-	private String lastName;
-	private String Phone;
 
+	@Column(name = "middle_name")
+	private String middleName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "phone")
+	private String phone;
+
+	@Column(name = "dob")
+	@Temporal(TemporalType.DATE)
 	private Date dateBirth;
 
+	@Column(name = "slibling_id")
 	private int sliblingId;
 
+	@Column(name = "affliation")
 	private int affliation;
 
+	@Column(name = "note")
 	private String note;
 
+	@ElementCollection
+	@CollectionTable(name = "dcms_child_contact", joinColumns = { @JoinColumn(name = "child_id") })
 	private List<Contact> contacts;
 
+	@OneToMany(mappedBy = "child", orphanRemoval = true)
 	private List<Enrollment> enrollments;
 
+	@OneToOne
+	@JoinColumn(name = "active_enrollment")
 	private Enrollment activeEnrollment;
-	
-
 
 	public String getMiddleName() {
 		return middleName;
@@ -108,13 +135,12 @@ public class Child extends Entity {
 		this.note = note;
 	}
 
-
 	public String getPhone() {
-		return Phone;
+		return phone;
 	}
 
 	public void setPhone(String phone) {
-		Phone = phone;
+		this.phone = phone;
 	}
 
 }

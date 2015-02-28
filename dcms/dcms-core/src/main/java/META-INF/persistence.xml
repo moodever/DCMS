@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="dcms-core" transaction-type="RESOURCE_LOCAL">
+		<mapping-file>META-INF/eclipselink-orm.xml</mapping-file>
+		<class>org.kooobao.dcms.core.entity.Child</class>
+		<class>org.kooobao.dcms.core.entity.Classroom</class>
+		<class>org.kooobao.dcms.core.entity.Enrollment</class>
+		<class>org.kooobao.dcms.core.entity.EventLog</class>
+		<class>org.kooobao.dcms.core.entity.Teacher</class>
+		<class>org.kooobao.dcms.core.entity.TimeSheet</class>
+		<class>org.kooobao.dcms.core.entity.WaitingList</class>
+		<class>org.kooobao.dcms.core.entity.Contact</class>
+		<properties>
+			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dcms-core"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="jieninan"/>
+			<property name="eclipselink.jdbc.bind-parameters" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>

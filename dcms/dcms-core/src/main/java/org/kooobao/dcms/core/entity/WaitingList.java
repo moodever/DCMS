@@ -2,23 +2,59 @@ package org.kooobao.dcms.core.entity;
 
 import java.util.Date;
 
-import org.kooobao.common.dao.Entity;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import org.kooobao.common.dao.Entity;
+import org.kooobao.common.dao.StatusEnumConverter;
+
+@javax.persistence.Entity
+@Table(name = "dcms_waitinglist")
+@Converter(name = "statusConverter", converterClass = StatusEnumConverter.class)
 public class WaitingList extends Entity {
 
 	public static enum Status {
 		ACTIVE, OFFERED, CONFIRMED, INVALID, RETURNED
 	}
 
+	@Column(name = "desire_date")
+	@Temporal(TemporalType.DATE)
 	private Date desireDate;
+
+	@Column(name = "application_date")
+	@Temporal(TemporalType.DATE)
 	private Date applicationDate;
+
+	@Column(name = "offered_date")
+	@Temporal(TemporalType.DATE)
 	private Date offeredDate;
+
+	@Column(name = "status")
+	@Convert("statusConverter")
 	private Status status;
+
+	@Column(name = "expect_grade")
 	private int expectGrade;
+
+	@Column(name = "note")
 	private String note;
-	private Child child;
+
+	@Column(name = "customized_sequence")
 	private int customizedSequence;
+
+	@Column(name = "attending_mode")
 	private String attendingMode;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "child")
+	private Child child;
 
 	public String getAttendingMode() {
 		return attendingMode;

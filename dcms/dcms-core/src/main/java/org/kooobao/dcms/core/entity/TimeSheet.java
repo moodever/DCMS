@@ -1,19 +1,24 @@
 package org.kooobao.dcms.core.entity;
 
-import org.kooobao.common.dao.Entity;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-public class TimeSheet extends Entity{
+@Embeddable
+public class TimeSheet {
 
-	
-	
+	@Column(name = "mon_time")
 	private String mondayTime;
-	
+
+	@Column(name = "tue_time")
 	private String tuesdayTime;
-	
+
+	@Column(name = "wed_time")
 	private String wednesdayTime;
-	
+
+	@Column(name = "thu_time")
 	private String thursdayTime;
-	
+
+	@Column(name = "fri_time")
 	private String fridayTime;
 
 	public String getMondayTime() {

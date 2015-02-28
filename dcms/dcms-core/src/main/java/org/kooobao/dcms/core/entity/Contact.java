@@ -1,17 +1,42 @@
 package org.kooobao.dcms.core.entity;
 
-public class Contact {
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+import org.kooobao.common.dao.Entity;
+
+@Embeddable
+public class Contact extends Entity {
+
+	@Column(name = "first_name")
 	private String firstName;
+
+	@Column(name = "middle_name")
 	private String middleName;
+
+	@Column(name = "last_name")
 	private String lastName;
-	private String Status;
-	
+
+	@Column(name = "status")
+	private String status;
+
+	@Column(name = "role")
 	private String role;
-	private String Email;
-	private String Phone1;
-	private String Phone2;
+
+	@Column
+	private String email;
+
+	@Column
+	private String phone1;
+
+	@Column
+	private String phone2;
+
+	@Column
 	private String address;
-	private String Note;
+
+	@Column
+	private String note;
 
 	public String getFirstName() {
 		return firstName;
@@ -38,19 +63,11 @@ public class Contact {
 	}
 
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		Status = status;
-	}
-
-	public String getNote() {
-		return Note;
-	}
-
-	public void setNote(String note) {
-		Note = note;
+		this.status = status;
 	}
 
 	public String getRole() {
@@ -62,27 +79,27 @@ public class Contact {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	public String getPhone1() {
-		return Phone1;
+		return phone1;
 	}
 
 	public void setPhone1(String phone1) {
-		Phone1 = phone1;
+		this.phone1 = phone1;
 	}
 
 	public String getPhone2() {
-		return Phone2;
+		return phone2;
 	}
 
 	public void setPhone2(String phone2) {
-		Phone2 = phone2;
+		this.phone2 = phone2;
 	}
 
 	public String getAddress() {
@@ -92,4 +109,13 @@ public class Contact {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 }

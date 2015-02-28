@@ -2,7 +2,7 @@ package org.kooobao.common.dao;
 
 public class Entity {
 
-	private int id;
+	private int id = -1;
 
 	public int getId() {
 		return id;

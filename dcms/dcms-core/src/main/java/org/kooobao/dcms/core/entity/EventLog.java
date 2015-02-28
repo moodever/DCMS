@@ -2,13 +2,28 @@ package org.kooobao.dcms.core.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import org.kooobao.common.dao.Entity;
 
-public class EventLog extends Entity{
+@javax.persistence.Entity
+@Table(name = "dcms_event_log")
+public class EventLog extends Entity {
 
+	@OneToOne
+	@JoinColumn(name = "child_id")
 	private Child child;
+
+	@Column
 	private String note;
+
+	@Column
 	private String event;
+
+	@Column
 	private Date eventDate;
 
 	public Child getChild() {

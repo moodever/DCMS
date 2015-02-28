@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.5"
+	xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_5.xsd">
+
+	<entity class="org.kooobao.dcms.core.entity.Child">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.kooobao.dcms.core.entity.Classroom">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.kooobao.dcms.core.entity.Enrollment">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.kooobao.dcms.core.entity.EventLog">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.kooobao.dcms.core.entity.Teacher">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+	<entity class="org.kooobao.dcms.core.entity.WaitingList">
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+		</attributes>
+	</entity>
+</entity-mappings>
