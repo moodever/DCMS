@@ -1,0 +1,104 @@
+div {
+	font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana,
+		"lucida sans unicode", tahoma, sans-serif;
+}
+
+.banner {
+	font-size: 30px;
+	border: 0px solid black;
+	font-weight: bold;
+	color: #8888EE;
+	padding-left: 20px;
+	padding-top: 5px;
+	padding-left: 20px;
+}
+
+.labeled_text {
+	font-size: 12px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	float: left;
+}
+
+.labeled_text label {
+	float: left;
+	display: block;
+	width: 250px;
+	font-weight: bold;
+}
+
+.labeled_text li {
+	font-size: 11px;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+.labeled_text li label {
+	float: left;
+	display: block;
+	width: 235px;
+	font-weight: bold;
+}
+
+.slabeled_text {
+	font-size: 12px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	float: left;
+	width: 270px;
+}
+
+.slabeled_text label {
+	float: left;
+	display: block;
+	width: 120px;
+	font-weight: bold;
+}
+
+.desc {
+	font-size: 12px;
+}
+
+.desc div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.desc label {
+	font-weight: bold;
+	display: block;
+	float: left;
+	width: 100px;
+}
+
+.desc ul li {
+	display: block;
+	float: left;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.intro {
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.intro a,a:visited {
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-decoration: none;
+}
+
+.intro2 {
+	font-size: 13px;
+}
+
+.intro_title {
+	font-weight: bold;
+	font-size: 15px;
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
