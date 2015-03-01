@@ -10,8 +10,8 @@ public class JpaChildDao extends JpaDao<Child> implements ChildDao {
 
 	@Override
 	public List<Child> findByLastName(String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select c from Child c where c.lastName = :lastName";
+		return getEntityManager().createQuery(sql, Child.class)
+				.setParameter("lastName", lastName).getResultList();
 	}
-
 }

@@ -23,19 +23,19 @@ public class Contact extends Entity {
 	@Column(name = "role")
 	private String role;
 
-	@Column
+	@Column(name = "email")
 	private String email;
 
-	@Column
+	@Column(name = "phone1")
 	private String phone1;
 
-	@Column
+	@Column(name = "phone2")
 	private String phone2;
 
-	@Column
+	@Column(name = "address")
 	private String address;
 
-	@Column
+	@Column(name = "note")
 	private String note;
 
 	public String getFirstName() {

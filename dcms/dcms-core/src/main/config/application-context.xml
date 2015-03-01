@@ -8,4 +8,5 @@
 	<bean id="childDao" class="org.kooobao.dcms.core.dao.jpa.JpaChildDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+
 </beans>

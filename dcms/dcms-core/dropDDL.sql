@@ -1,0 +1,16 @@
+ALTER TABLE dcms_child DROP FOREIGN KEY FK_dcms_child_active_enrollment
+ALTER TABLE dcms_waitinglist DROP FOREIGN KEY FK_dcms_waitinglist_child
+ALTER TABLE dcms_enrollment DROP FOREIGN KEY FK_dcms_enrollment_classroom_id
+ALTER TABLE dcms_enrollment DROP FOREIGN KEY FK_dcms_enrollment_child_id
+ALTER TABLE dcms_event_log DROP FOREIGN KEY FK_dcms_event_log_child_id
+ALTER TABLE dcms_child_contact DROP FOREIGN KEY FK_dcms_child_contact_child_id
+ALTER TABLE dcms_classroom_teacher DROP FOREIGN KEY FK_dcms_classroom_teacher_classroom_id
+ALTER TABLE dcms_classroom_teacher DROP FOREIGN KEY FK_dcms_classroom_teacher_teacher_id
+DROP TABLE dcms_child
+DROP TABLE dcms_teacher
+DROP TABLE dcms_waitinglist
+DROP TABLE dcms_enrollment
+DROP TABLE dcms_classroom
+DROP TABLE dcms_event_log
+DROP TABLE dcms_child_contact
+DROP TABLE dcms_classroom_teacher
