@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.kooobao.common.dao.Entity;
 
@@ -17,13 +19,14 @@ public class EventLog extends Entity {
 	@JoinColumn(name = "child_id")
 	private Child child;
 
-	@Column
+	@Column(name = "note")
 	private String note;
 
-	@Column
+	@Column(name = "event")
 	private String event;
 
-	@Column
+	@Column(name = "event_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date eventDate;
 
 	public Child getChild() {

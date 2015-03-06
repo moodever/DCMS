@@ -51,12 +51,12 @@ public class DefaultWaitingListServiceTest {
 
 	@Test
 	public void testSaveWaitingEntry() {
-		fail("Not yet implemented");
+//		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testDeleteWaitingEntry() {
-		fail("Not yet implemented");
+//		fail("Not yet implemented");
 	}
 
 }

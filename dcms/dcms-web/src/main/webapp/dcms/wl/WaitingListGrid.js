@@ -39,6 +39,12 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		dataIndex : 'status'
 	} ],
 	tbar : [ {
+		itemId : 'refreshButton',
+		text : 'Refresh',
+		handler : function() {
+			this.up('wlgrid').refresh();
+		}
+	}, {
 		itemId : 'addButton',
 		text : 'Add Child',
 		handler : function() {
@@ -73,9 +79,15 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		}
 	},
 	refresh : function() {
-		// Do not refresh if under selection
-		if (this.getSelectionModel().getSelection().length != 0)
-			return;
-
+		debugger;
+		WaitingListService.findWaitingList({}, {
+			callback : function(result) {
+				debugger;
+			},
+			errorHandler : function(errorString, exception) {
+				console.log(errorString);
+				console.log(exception);
+			}
+		})
 	}
 });

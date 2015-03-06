@@ -2,36 +2,36 @@ Ext.namespace("DCMS");
 DCMS.menuStore = Ext.create('Ext.data.TreeStore');
 DCMS.menuItems = new Array();
 
-var root = {};
-root.expanded = true;
-root.children = new Array();
+var menuRoot = {};
+menuRoot.expanded = true;
+menuRoot.children = new Array();
 
 // Waiting List
-var waitingList = {
+var menuWaitingList = {
 	text : "Waiting List",
 	id : 100,
 	leaf : false,
 	children : new Array()
 };
-root.children.push(waitingList);
+menuRoot.children.push(menuWaitingList);
 
-var viewWaitingList = {
+var menuViewWaitingList = {
 	text : "Manage Waiting List",
 	id : 101,
 	leaf : true
 };
-waitingList.children.push(viewWaitingList);
+menuWaitingList.children.push(menuViewWaitingList);
 
 // Enrollment
-var enrollment = {
+var menuEnrollment = {
 	text : "Enrollment",
 	id : 200,
 	leaf : false,
 	children : new Array()
 };
-root.children.push(enrollment);
+menuRoot.children.push(menuEnrollment);
 
-DCMS.menuStore.setRootNode(root);
+DCMS.menuStore.setRootNode(menuRoot);
 
 function displayNode(id) {
 	var newid = "tab" + id;
