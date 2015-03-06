@@ -4,8 +4,10 @@ import org.kooobao.dcms.core.service.dto.ChangeClassDto;
 import org.kooobao.dcms.core.service.dto.ChangeClassResultDto;
 import org.kooobao.dcms.core.service.dto.ContractEndDto;
 import org.kooobao.dcms.core.service.dto.ContractEndResultDto;
+import org.kooobao.dcms.core.service.dto.EnrollContractedResultDto;
 import org.kooobao.dcms.core.service.dto.EnrollStatusChangeDto;
 import org.kooobao.dcms.core.service.dto.EnrollmentAcceptedResultDto;
+import org.kooobao.dcms.core.service.dto.EnrollmentContractFailResultDto;
 import org.kooobao.dcms.core.service.dto.EnrollmentOfferRefusedResultDto;
 import org.kooobao.dcms.core.service.dto.GenerateEnrolChartDto;
 import org.kooobao.dcms.core.service.dto.GenerateEnrolChartResultDto;
@@ -31,7 +33,13 @@ public interface EnrollmentService {
 	
 	public EnrollmentOfferRefusedResultDto enrollmentOfferRefused(
 			EnrollStatusChangeDto input);
+	
+	public EnrollmentContractFailResultDto enrollmentContractFail(
+			EnrollStatusChangeDto input);
+	
+	public EnrollContractedResultDto enrollmentContracted(
+			EnrollStatusChangeDto input);
+	
 		 
-
 
 }
