@@ -9,7 +9,7 @@ public class KidsChartNodeDto {
 	String Wednesday;
 	String Thursday;
 	String Friday;
-	String Affiliation;
+	int Affiliation;
 	String Notes;
 
 	public String getFirstName() {
@@ -69,11 +69,11 @@ public class KidsChartNodeDto {
 		Friday = friday;
 	}
 
-	public String getAffiliation() {
+	public int getAffiliation() {
 		return Affiliation;
 	}
 
-	public void setAffiliation(String affiliation) {
+	public void setAffiliation(int affiliation) {
 		Affiliation = affiliation;
 	}
 

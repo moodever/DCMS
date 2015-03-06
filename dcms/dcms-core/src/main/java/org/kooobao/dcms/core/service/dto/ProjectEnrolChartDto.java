@@ -2,18 +2,11 @@ package org.kooobao.dcms.core.service.dto;
 
 import org.kooobao.dcms.core.dto.Dto;
 
-public class GenerateEnrolChartDto extends Dto {
-
+public class ProjectEnrolChartDto extends Dto{
+	
 	private int ClassroomId;
-	private DateDto termStartDate;
-
-	public DateDto getTermStartDate() {
-		return termStartDate;
-	}
-
-	public void setTermStartDate(DateDto termStartDate) {
-		this.termStartDate = termStartDate;
-	}
+	private String term; 
+	
 
 	public int getClassroomId() {
 		return ClassroomId;
@@ -22,5 +15,15 @@ public class GenerateEnrolChartDto extends Dto {
 	public void setClassroomId(int classroomId) {
 		ClassroomId = classroomId;
 	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+	
+	
 
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.kooobao.dcms.core.dto.Dto;
 import org.kooobao.dcms.core.entity.Classroom;
+import org.kooobao.dcms.core.entity.TimeSheet;
 
 public class PrepareEnrollmentDto extends Dto{
 	
@@ -14,6 +15,8 @@ public class PrepareEnrollmentDto extends Dto{
 	private Classroom classroom;
 	private String attendingMode;
 	private int waitingListId;
+	private TimeSheet timeSheet;
+	
 
 	
 	public String getTerm() {
@@ -51,6 +54,14 @@ public class PrepareEnrollmentDto extends Dto{
 	}
 	public void setWaitingListId(int waitingListID) {
 		this.waitingListId = waitingListID;
+	}
+	
+	public TimeSheet getTimeSheet() {
+		return timeSheet;
+	}
+	
+	public void setTimeSheet(TimeSheet timeSheet) {
+		this.timeSheet = timeSheet;
 	}
 	
 

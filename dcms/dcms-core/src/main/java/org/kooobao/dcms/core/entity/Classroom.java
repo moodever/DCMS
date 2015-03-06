@@ -23,6 +23,28 @@ public class Classroom extends Entity {
 
 	@Column(name = "capacity")
 	private int capacity;
+	
+	@Column(name = "ageFrom")
+	private double ageFrom;
+	
+	@Column(name = "ageTo")
+	private double ageTo;	
+
+	public double getAgeFrom() {
+		return ageFrom;
+	}
+
+	public void setAgeFrom(double ageFrom) {
+		this.ageFrom = ageFrom;
+	}
+
+	public double getAgeTo() {
+		return ageTo;
+	}
+
+	public void setAgeTo(double ageTo) {
+		this.ageTo = ageTo;
+	}
 
 	@OneToMany(mappedBy = "classroom")
 	private List<Enrollment> enrollments;

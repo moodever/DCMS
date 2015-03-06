@@ -5,6 +5,17 @@ public class ResultDto {
 	private boolean success;
 
 	private String errorMessage;
+	
+	private int errorCode;
+	
+
+	public int getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
 
 	public boolean isSuccess() {
 		return success;

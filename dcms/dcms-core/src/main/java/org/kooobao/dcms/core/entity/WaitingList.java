@@ -21,7 +21,7 @@ import org.kooobao.common.dao.StatusEnumConverter;
 public class WaitingList extends Entity {
 
 	public static enum Status {
-		ACTIVE, OFFERED, CONFIRMED, INVALID, RETURNED
+		ACTIVE, OFFERED, CONFIRMED, INVALID, RETURNED,REMOVED
 	}
 
 	@Column(name = "desire_date")

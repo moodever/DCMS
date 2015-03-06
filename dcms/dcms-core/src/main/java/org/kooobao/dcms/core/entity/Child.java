@@ -1,5 +1,6 @@
 package org.kooobao.dcms.core.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import org.kooobao.common.dao.Entity;
 @Table(name = "dcms_child")
 public class Child extends Entity {
 
-	@Column(name = "first_name",columnDefinition="INTEGER(10)")
+	@Column(name = "first_name", columnDefinition = "INTEGER(10)")
 	private String firstName;
 
 	@Column(name = "middle_name")
@@ -55,6 +56,10 @@ public class Child extends Entity {
 	@JoinColumn(name = "active_enrollment")
 	private Enrollment activeEnrollment;
 
+	public Child() {
+		this.enrollments = new ArrayList<Enrollment>();
+	}
+
 	public String getMiddleName() {
 		return middleName;
 	}
@@ -75,8 +80,13 @@ public class Child extends Entity {
 		return enrollments;
 	}
 
-	public void setEnrollments(List<Enrollment> enrollments) {
-		this.enrollments = enrollments;
+	// Always return the first Enrollment with the specified status
+	public Enrollment getEnrollment(Enrollment.Status status) {
+		for (Enrollment enrollment : this.enrollments) {
+			if (enrollment.getStatus() == status)
+				return enrollment;
+		}
+		return null;
 	}
 
 	public Enrollment getActiveEnrollment() {

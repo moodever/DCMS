@@ -16,13 +16,17 @@ import org.kooobao.common.dao.Entity;
 @Table(name = "dcms_enrollment")
 public class Enrollment extends Entity {
 
-	public static int STATUS_WAITCONFIRM = 0;
-	public static int STATUS_WAITCONTRACT = 1;
-	public static int STATUS_EFFECTIVE = 2;
-	public static int STATUS_VOID = 3;
+//	public static int STATUS_WAITCONFIRM = 0;
+//	public static int STATUS_WAITCONTRACT = 1;
+//	public static int STATUS_EFFECTIVE = 2;
+//	public static int STATUS_VOID = 3;
+	
+	public static enum Status {
+		WAITCONFIRM, WAITCONTRACT, EFFECTIVE, OLD, INVALID, REFUSED
+	}
 
 	@Column
-	private int status;
+	private Status status;
 
 	@Column
 	private String term;
@@ -89,11 +93,11 @@ public class Enrollment extends Entity {
 		this.classroom = classroom;
 	}
 
-	public int getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
