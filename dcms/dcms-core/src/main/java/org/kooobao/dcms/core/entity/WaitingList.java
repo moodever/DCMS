@@ -13,11 +13,11 @@ import javax.persistence.TemporalType;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.kooobao.common.dao.Entity;
-import org.kooobao.common.dao.StatusEnumConverter;
+import org.kooobao.common.dao.WLStatusEnumConverter;
 
 @javax.persistence.Entity
 @Table(name = "dcms_waitinglist")
-@Converter(name = "statusConverter", converterClass = StatusEnumConverter.class)
+@Converter(name = "statusConverter", converterClass = WLStatusEnumConverter.class)
 public class WaitingList extends Entity {
 
 	public static enum Status {

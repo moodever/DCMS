@@ -5,7 +5,7 @@ import org.eclipse.persistence.mappings.converters.Converter;
 import org.eclipse.persistence.sessions.Session;
 import org.kooobao.dcms.core.entity.WaitingList.Status;
 
-public class StatusEnumConverter implements Converter {
+public class WLStatusEnumConverter implements Converter {
 
 	/**
 	 * 

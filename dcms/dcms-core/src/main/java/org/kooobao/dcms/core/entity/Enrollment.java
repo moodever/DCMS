@@ -10,25 +10,25 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import org.kooobao.common.dao.ERStatusEnumConverter;
 import org.kooobao.common.dao.Entity;
 
 @javax.persistence.Entity
 @Table(name = "dcms_enrollment")
+@Converter(name = "statusConverter", converterClass = ERStatusEnumConverter.class)
 public class Enrollment extends Entity {
 
-//	public static int STATUS_WAITCONFIRM = 0;
-//	public static int STATUS_WAITCONTRACT = 1;
-//	public static int STATUS_EFFECTIVE = 2;
-//	public static int STATUS_VOID = 3;
-	
 	public static enum Status {
 		WAITCONFIRM, WAITCONTRACT, EFFECTIVE, OLD, INVALID, REFUSED
 	}
 
-	@Column
+	@Column(name = "status")
+	@Convert("statusConverter")
 	private Status status;
 
-	@Column
+	@Column(name = "term")
 	private String term;
 
 	@Column(name = "contract_from_date")
