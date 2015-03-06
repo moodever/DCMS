@@ -17,8 +17,7 @@ Ext.define('DCMS.SummaryPanel', {
 		xtype : 'panel',
 		width : '100%',
 		height : 45,
-		styleHtmlContent : true,
-		styleHtmlCls : 'banner',
+		bodyCls : 'banner',
 		html : 'Child Care Manage System',
 		colspan : 2
 	}, {

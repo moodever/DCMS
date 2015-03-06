@@ -5,6 +5,10 @@ Ext.define("DCMS.MainViewPort", {
 		type : 'border'
 	},
 	items : [ {
+		xtype : 'menutree',
+		id : 'menuTree',
+		region : 'west'
+	}, {
 		xtype : 'tabpanel',
 		id : 'maintab',
 		closeAction : 'hide',

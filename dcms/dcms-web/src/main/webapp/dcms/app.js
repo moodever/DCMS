@@ -4,16 +4,13 @@ Ext.Loader.setConfig({
 		'DCMS' : 'dcms'
 	}
 });
-Ext.require([ 'Ext.data.TreeStore' ]);
-Ext.require('Ext.ux.CheckColumn');
-Ext.require([ 'Ext.chart.*', 'Ext.chart.axis.Gauge', 'Ext.chart.series.*',
-		'Ext.Window' ]);
-Ext.require([ 'Ext.grid.*', 'Ext.data.*', 'Ext.util.*', 'Ext.state.*' ]);
 
-Ext.require([ 'DCMS.MainViewPort', 'DCMS.SummaryPanel' ]);
+Ext.require([ 'DCMS.MainViewPort', 'DCMS.SummaryPanel', 'DCMS.MenuTree' ]);
+Ext.require([ 'DCMS.wl.WaitingListPanel', 'DCMS.wl.WaitingListGrid',
+		'DCMS.wl.NewWaitingEntryWindow' ]);
 
 Ext.application({
-	name : 'DCMS',
+	name : 'Child Care Management System',
 	launch : function() {
 		Ext.create('DCMS.MainViewPort');
 	}
