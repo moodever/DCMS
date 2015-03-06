@@ -4,20 +4,20 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.kooobao.common.dao.Entity;
 import org.kooobao.common.dao.WLStatusEnumConverter;
 
 @javax.persistence.Entity
 @Table(name = "dcms_waitinglist")
-@Converter(name = "statusConverter", converterClass = WLStatusEnumConverter.class)
 public class WaitingList extends Entity {
 
 	public static enum Status {
@@ -37,7 +37,7 @@ public class WaitingList extends Entity {
 	private Date offeredDate;
 
 	@Column(name = "status")
-	@Convert("statusConverter")
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	@Column(name = "expect_grade")

@@ -8,7 +8,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>WEB-INF/spring/application-context.xml</param-value>
 	</context-param>
-	<!-- listener>
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
@@ -34,5 +34,5 @@
 	<servlet-mapping>
 		<servlet-name>dwr-invoker</servlet-name>
 		<url-pattern>/dwr/*</url-pattern>
-	</servlet-mapping-->
+	</servlet-mapping>
 </web-app>

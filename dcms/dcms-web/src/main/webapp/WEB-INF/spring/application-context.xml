@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<import resource="env.xml" />
+
+	<!-- Dao Definition -->
+
+	<bean id="childDao" class="org.kooobao.dcms.core.dao.jpa.JpaChildDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<bean id="classroomDao" class="org.kooobao.dcms.core.dao.jpa.JpaClassroomDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<bean id="enrollmentDao" class="org.kooobao.dcms.core.dao.jpa.JpaEnrollmentDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<bean id="waitingListDao" class="org.kooobao.dcms.core.dao.jpa.JpaWaitingListDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<!-- Service definition -->
+	<bean id="waitingListService"
+		class="org.kooobao.dcms.core.service.impl.DefaultWaitingListService">
+		<property name="childDao" ref="childDao" />
+		<property name="waitingListDao" ref="waitingListDao" />
+	</bean>
+
+</beans>

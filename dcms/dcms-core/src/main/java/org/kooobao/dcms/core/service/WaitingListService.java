@@ -2,7 +2,8 @@ package org.kooobao.dcms.core.service;
 
 import org.kooobao.dcms.core.service.dto.DeleteWaitingEntryDto;
 import org.kooobao.dcms.core.service.dto.DeleteWaitingEntryResultDto;
-import org.kooobao.dcms.core.service.dto.EnrollmentOfferRefusedResultDto;
+import org.kooobao.dcms.core.service.dto.FindWaitingListDto;
+import org.kooobao.dcms.core.service.dto.FindWaitingListResultDto;
 import org.kooobao.dcms.core.service.dto.NotifyWaitingListDto;
 import org.kooobao.dcms.core.service.dto.NotifyWaitingListResultDto;
 import org.kooobao.dcms.core.service.dto.SaveWaitingEntryDto;
@@ -18,5 +19,5 @@ public interface WaitingListService {
 	public DeleteWaitingEntryResultDto deleteWaitingEntry(
 			DeleteWaitingEntryDto input);
 
-	
+	public FindWaitingListResultDto findWaitingList(FindWaitingListDto input);
 }

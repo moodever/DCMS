@@ -2,12 +2,11 @@ package org.kooobao.dcms.core.dto;
 
 public class ResultDto {
 
-	private boolean success;
+	private boolean success = true;
 
 	private String errorMessage;
-	
+
 	private int errorCode;
-	
 
 	public int getErrorCode() {
 		return errorCode;
