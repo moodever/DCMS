@@ -5,11 +5,9 @@ import java.util.Date;
 import org.kooobao.dcms.core.dto.Dto;
 
 public class SaveWaitingEntryDto extends Dto {
-	
-	private int waitingListID;
-	private int childID;
-	
-	
+
+	private int waitingListID = -1;
+	private int childID = -1;
 
 	public int getChildID() {
 		return childID;
@@ -182,8 +180,5 @@ public class SaveWaitingEntryDto extends Dto {
 	public void setContacts(ContactDto[] contacts) {
 		this.contacts = contacts;
 	}
-	
 
 }
-
-

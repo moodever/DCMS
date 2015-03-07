@@ -12,9 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.eclipse.persistence.annotations.Converter;
 import org.kooobao.common.dao.Entity;
-import org.kooobao.common.dao.WLStatusEnumConverter;
 
 @javax.persistence.Entity
 @Table(name = "dcms_waitinglist")

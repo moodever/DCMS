@@ -49,6 +49,12 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		text : 'Add Child',
 		handler : function() {
 			var win = Ext.create('DCMS.wl.NewWaitingEntryWindow');
+			win.on('close', function(win) {
+				debugger;
+				if (win.submitted)
+					this.up('wlgrid').refresh();
+			}, win);
+
 			win.show();
 		}
 	}, {
