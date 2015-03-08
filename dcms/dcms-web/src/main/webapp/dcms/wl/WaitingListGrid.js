@@ -22,7 +22,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 	multiSelect : false,
 	columns : [ {
 		text : 'Name',
-		width : 120,
+		width : 200,
 		sortable : true,
 		dataIndex : 'name'
 	}, {
@@ -54,10 +54,11 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		text : 'Add Child',
 		handler : function() {
 			var win = Ext.create('DCMS.wl.NewWaitingEntryWindow');
+			var grid = this.up('wlgrid');
 			win.on('close', function(win) {
 				debugger;
 				if (win.submitted)
-					this.up('wlgrid').refresh();
+					grid.refresh();
 			}, win);
 
 			win.show();
@@ -112,6 +113,6 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				console.log(errorString);
 				console.log(exception);
 			}
-		})
+		});
 	}
 });

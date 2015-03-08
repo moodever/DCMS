@@ -204,15 +204,14 @@ Ext.define('DCMS.wl.NewWaitingEntryWindow', {
 				// Collect information from fields
 				var window = this.up('newwlwindow');
 				var data = window.dataCollector.collect(window);
-				data.status = 'ACTIVE';
+				data.status = 0; // Active
 				data.contacts = new Array();
 				data.contacts.push(data.contact);
 				data.contact = undefined;
-				debugger;
 
 				WaitingListService.saveWaitingEntry(data, {
 					callback : function() {
-						window.submitted = false;
+						window.submitted = true;
 						window.close();
 					}
 				});
