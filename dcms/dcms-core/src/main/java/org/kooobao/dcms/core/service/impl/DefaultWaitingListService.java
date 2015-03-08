@@ -58,7 +58,6 @@ public class DefaultWaitingListService implements WaitingListService {
 			child = this.getChildDao().findById(input.getChildID());
 			waitingList = this.getWaitingListDao().findById(
 					input.getWaitingListID());
-
 		} else {
 			child = new Child();
 
@@ -99,7 +98,6 @@ public class DefaultWaitingListService implements WaitingListService {
 		// ? child.setEnrollments(null);
 		child.setMiddleName(input.getChildMiddleName());
 		child.setNote(input.getNote());
-		child.setPhone(input.getPhone());
 		child.setSliblingId(input.getSliblingId());
 		// ?child.setTimeSheet(null);
 
@@ -155,7 +153,7 @@ public class DefaultWaitingListService implements WaitingListService {
 		for (WaitingList wl : list) {
 			wldtos[counter] = new WaitingListDto();
 			wldtos[counter].setId(wl.getId());
-			wldtos[counter].setName(MessageFormat.format("%s %s %s", wl
+			wldtos[counter].setName(MessageFormat.format("{0} {1} {2}", wl
 					.getChild().getFirstName(), wl.getChild().getMiddleName(),
 					wl.getChild().getLastName()));
 			wldtos[counter].setDateOfBirth(wl.getChild().getDateBirth());

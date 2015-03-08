@@ -1,15 +1,18 @@
 Ext.define('DCMS.wl.WaitingListModel', {
 	extend : 'Ext.data.Model',
 	fields : [ {
+		name : 'id'
+	}, {
 		name : 'name'
 	}, {
-		name : 'dob'
+		name : 'dateOfBirth',
+		type : 'date'
 	}, {
 		name : 'affiliation'
 	}, {
 		name : 'status'
 	} ],
-	idProperty : 'name'
+	idProperty : 'id'
 });
 
 Ext.define('DCMS.wl.WaitingListGrid', {
@@ -26,7 +29,9 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		text : 'Date of Birth',
 		width : 150,
 		sortable : true,
-		dataIndex : 'dob'
+		dataIndex : 'dateOfBirth',
+		xtype : 'datecolumn',
+		format : 'm/d/Y'
 	}, {
 		text : 'Affiliation',
 		width : 150,
@@ -78,17 +83,30 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		this.callParent();
 	},
 	listeners : {
-		'selectionchange' : function(view, records) {
-			var selected = records.length != 0
+		select : function(view, records, index, eopts) {
+			var selected = this.getSelectionModel().hasSelection();
 			this.down('#confirmButton').setDisabled(!selected);
+			this.down('#offerButton').setDisabled(!selected);
+		},
+		deselect : function(view, records, index, eopts) {
+			debugger;
+
+			var selected = this.getSelectionModel().hasSelection();
 			this.down('#confirmButton').setDisabled(!selected);
+			this.down('#offerButton').setDisabled(!selected);
+		},
+		afterrender : function() {
+			this.refresh();
 		}
 	},
 	refresh : function() {
-		debugger;
+		var grid = this;
 		WaitingListService.findWaitingList({}, {
 			callback : function(result) {
-				debugger;
+				if (result.success) {
+					var wl = result.waitingLists;
+					grid.store.setData(wl);
+				}
 			},
 			errorHandler : function(errorString, exception) {
 				console.log(errorString);

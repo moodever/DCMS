@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
 import org.eclipse.persistence.queries.ScrollableCursor;
@@ -60,16 +59,13 @@ public abstract class JpaDao<T extends Entity> implements Dao<T> {
 	}
 
 	public T save(T object) {
-		// Custom Transaction to make sure object acquires its id
-		EntityTransaction t = getEntityManager().getTransaction();
-		t.begin();
-
 		if (-1 == object.getId()) {
+			// Pre-acquire object id
 			getEntityManager().persist(object);
 		} else {
 			object = getEntityManager().merge(object);
 		}
-		t.commit();
+
 		return object;
 	}
 

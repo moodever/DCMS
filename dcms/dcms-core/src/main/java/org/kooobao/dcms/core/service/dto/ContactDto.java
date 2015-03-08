@@ -6,74 +6,93 @@ public class ContactDto extends Dto {
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private String Status;
-	
+	private String status;
+
 	private String role;
-	private String Email;
-	private String Phone1;
-	private String Phone2;
+	private String email;
+	private String phone1;
+	private String phone2;
 	private String address;
-	private String Note;
+	private String note;
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getMiddleName() {
 		return middleName;
 	}
+
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getStatus() {
-		return Status;
+		return status;
 	}
+
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
 	}
+
 	public String getRole() {
 		return role;
 	}
+
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 	public String getEmail() {
-		return Email;
+		return email;
 	}
+
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
+
 	public String getPhone1() {
-		return Phone1;
+		return phone1;
 	}
+
 	public void setPhone1(String phone1) {
-		Phone1 = phone1;
+		this.phone1 = phone1;
 	}
+
 	public String getPhone2() {
-		return Phone2;
+		return phone2;
 	}
+
 	public void setPhone2(String phone2) {
-		Phone2 = phone2;
+		this.phone2 = phone2;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getNote() {
-		return Note;
+		return note;
 	}
+
 	public void setNote(String note) {
-		Note = note;
+		this.note = note;
 	}
-	
-	
+
 }

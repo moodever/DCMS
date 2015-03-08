@@ -38,9 +38,8 @@ public class SaveWaitingEntryDto extends Dto {
 	private String childMiddleName;
 	private String childLastName;
 	private Date childDateBirth;
-	private String Phone;
 	private int sliblingId;
-	private int affliation;
+	private int affiliation;
 	private String childNote;
 
 	private ContactDto[] contacts;
@@ -141,12 +140,12 @@ public class SaveWaitingEntryDto extends Dto {
 		this.childDateBirth = childDateBirth;
 	}
 
-	public String getPhone() {
-		return Phone;
+	public int getAffiliation() {
+		return affiliation;
 	}
 
-	public void setPhone(String phone) {
-		Phone = phone;
+	public void setAffiliation(int affiliation) {
+		this.affiliation = affiliation;
 	}
 
 	public int getSliblingId() {
@@ -158,11 +157,11 @@ public class SaveWaitingEntryDto extends Dto {
 	}
 
 	public int getAffliation() {
-		return affliation;
+		return affiliation;
 	}
 
-	public void setAffliation(int affliation) {
-		this.affliation = affliation;
+	public void setAffliation(int affiliation) {
+		this.affiliation = affiliation;
 	}
 
 	public String getChildNote() {

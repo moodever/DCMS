@@ -3,13 +3,13 @@ Ext.namespace('DCMS.wl');
 DCMS.wl.affiliationStore = Ext.create('Ext.data.Store', {
 	fields : [ 'name', 'value' ],
 	data : [ {
-		"name" : "Faculty",
+		"name" : "None",
 		"value" : 0
 	}, {
-		"name" : "Student",
+		"name" : "Faculty",
 		"value" : 1
 	}, {
-		"name" : "None",
+		"name" : "Student",
 		"value" : 2
 	} ]
 });
