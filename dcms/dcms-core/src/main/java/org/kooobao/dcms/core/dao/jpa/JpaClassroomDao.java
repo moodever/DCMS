@@ -10,7 +10,7 @@ public class JpaClassroomDao extends JpaDao<Classroom> implements ClassroomDao {
 
 	@Override
 	public Classroom findByNameTerm(String name, String term) {
-		String sql = "select c from Classroom c where name = :name and term = :term";
+		String sql = "select c from Classroom c where c.name = :name and c.term = :term";
 
 		try {
 			return getEntityManager().createQuery(sql, Classroom.class)

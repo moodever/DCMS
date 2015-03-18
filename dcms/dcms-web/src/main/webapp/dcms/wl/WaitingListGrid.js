@@ -50,94 +50,105 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		flex : 1,
 		sortable : false
 	} ],
-	tbar : [ {
-		itemId : 'refreshButton',
-		text : 'Refresh',
-		handler : function() {
-			this.up('wlgrid').refresh();
-		}
-	}, {
-		itemId : 'addButton',
-		text : 'Add Child',
-		handler : function() {
-			var win = Ext.create('DCMS.wl.NewWaitingEntryWindow');
-			var grid = this.up('wlgrid');
-			win.on('close', function(win) {
-				debugger;
-				if (win.submitted)
-					grid.refresh();
-			}, win);
+	tbar : [
+			{
+				itemId : 'refreshButton',
+				text : 'Refresh',
+				handler : function() {
+					this.up('wlgrid').refresh();
+				}
+			},
+			{
+				itemId : 'addButton',
+				text : 'Add Child',
+				handler : function() {
+					var win = Ext.create('DCMS.wl.NewWaitingEntryWindow');
+					var grid = this.up('wlgrid');
+					win.on('close', function(win) {
+						debugger;
+						if (win.submitted)
+							grid.refresh();
+					}, win);
 
-			win.show();
-		}
-	}, {
-		itemId : 'offerButton',
-		text : 'Offer a Position',
-		hidden : true,
-		handler : function() {
-			var grid = this.up('wlgrid');
-			if (grid.getSelectionModel().hasSelection()) {
-				var selectedItems = grid.getSelectionModel().getSelection();
-				var firstSelect = selectedItems[0];
+					win.show();
+				}
+			},
+			{
+				itemId : 'offerButton',
+				text : 'Offer a Position',
+				hidden : true,
+				handler : function() {
+					var grid = this.up('wlgrid');
+					if (grid.getSelectionModel().hasSelection()) {
+						var selectedItems = grid.getSelectionModel()
+								.getSelection();
+						var firstSelect = selectedItems[0];
 
-				var win = Ext.create('DCMS.wl.OfferPositionWindow');
-				win.waitingListId = firstSelect.id;
-				var grid = this.up('wlgrid');
-				win.on('close', function(win) {
-					if (win.submitted) {
-						var dto = win.dataObject;
+						var win = Ext.create('DCMS.wl.OfferPositionWindow');
+						win.waitingListId = firstSelect.id;
+						var grid = this.up('wlgrid');
+						win.on('close', function(win) {
+							if (win.submitted) {
+								var dto = win.dataObject;
 
-						EnrollmentService.prepareEnrollment(dto, {
-							callback : function(result) {
-								grid.refresh();
-							},
-							errorHandler : function(error, errorMsg) {
+								EnrollmentService.prepareEnrollment(dto, {
+									callback : function(result) {
+										if (!result.success) {
+											Ext.MessageBox.alert('Error',
+													result.errorMessage);
+										} else {
+											Ext.MessageBox.alert('Info',
+													"Operation succeed");
+											grid.refresh();
+										}
+									},
+									errorHandler : function(error, errorMsg) {
 
+									}
+								});
 							}
-						});
-					}
-				}, win);
+						}, win);
 
-				win.show();
-			}
-		}
-	}, {
-		itemId : 'confirmButton',
-		text : 'Contract Confirm',
-		hidden : true
-	}, {
-		itemId : 'contractFailButton',
-		text : 'Contract Fail',
-		hidden : true
-	}, {
-		itemId : 'removeButton',
-		text : 'Remove',
-		hidden : true
-	}, {
-		itemId : 'keepOnListButton',
-		text : 'Keep On List',
-		hidden : true
-	}, {
-		itemId : 'acceptButton',
-		text : 'Accept Offer',
-		hidden : true
-	}, {
-		itemId : 'noResponseButton',
-		text : 'Accept Offer',
-		hidden : true
-	}, {
-		itemId : 'deClineButton',
-		text : 'Decline Offer',
-		hidden : true
-	}, {
-		itemId : 'returnToListButton',
-		text : 'return to list',
-		hidden : true
-	}, {
-		itemId : 'enrollButton',
-		text : 'Enroll',
-		hidden : true
-	} ],
+						win.show();
+					}
+				}
+			}, {
+				itemId : 'confirmButton',
+				text : 'Contract Confirm',
+				hidden : true
+			}, {
+				itemId : 'contractFailButton',
+				text : 'Contract Fail',
+				hidden : true
+			}, {
+				itemId : 'removeButton',
+				text : 'Remove',
+				hidden : true
+			}, {
+				itemId : 'keepOnListButton',
+				text : 'Keep On List',
+				hidden : true
+			}, {
+				itemId : 'acceptButton',
+				text : 'Accept Offer',
+				hidden : true
+			}, {
+				itemId : 'noResponseButton',
+				text : 'Accept Offer',
+				hidden : true
+			}, {
+				itemId : 'deClineButton',
+				text : 'Decline Offer',
+				hidden : true
+			}, {
+				itemId : 'returnToListButton',
+				text : 'return to list',
+				hidden : true
+			}, {
+				itemId : 'enrollButton',
+				text : 'Enroll',
+				hidden : true
+			} ],
 	viewConfig : {
 		stripeRows : true,
 		enableTextSelection : true

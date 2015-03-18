@@ -58,25 +58,25 @@ DCMS.wl.termStore = Ext.create('Ext.data.Store', {
 	fields : [ 'name', 'value' ],
 	data : [ {
 		'name' : 'Spring 15',
-		"value" : 0
+		"value" : 'spring15'
 	}, {
 		'name' : 'Fall 15',
-		'value' : 1
+		'value' : 'fall15'
 	}, {
 		'name' : 'Spring 16',
-		'value' : 2
+		'value' : 'spring16'
 	}, {
 		'name' : 'Fall 16',
-		'value' : 3
+		'value' : 'fall16'
 	}, {
 		'name' : "Spring 17",
-		'value' : 4
+		'value' : 'spring17'
 	}, {
 		'name' : 'Fall 17',
-		'value' : 5
+		'value' : 'fall17'
 	}, {
 		'name' : 'Spring 18',
-		'value' : 6
+		'value' : 'spring18'
 	} ]
 });
 
