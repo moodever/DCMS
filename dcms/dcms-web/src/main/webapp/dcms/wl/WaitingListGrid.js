@@ -11,8 +11,11 @@ Ext.define('DCMS.wl.WaitingListModel', {
 		name : 'affiliation'
 	}, {
 		name : 'status'
-	} ],
-	idProperty : 'id'
+	}, {
+		name : 'displayStatus'
+	}, {
+		idProperty : 'id'
+	} ]
 });
 
 Ext.define('DCMS.wl.WaitingListGrid', {
@@ -39,9 +42,13 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 		dataIndex : 'affiliation'
 	}, {
 		text : 'Status',
-		flex : 1,
+		width : 150,
 		sortable : false,
 		dataIndex : 'status'
+	}, {
+		text : 'Notes',
+		flex : 1,
+		sortable : false
 	} ],
 	tbar : [ {
 		itemId : 'refreshButton',
@@ -66,11 +73,70 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 	}, {
 		itemId : 'offerButton',
 		text : 'Offer a Position',
-		disabled : true
+		hidden : true,
+		handler : function() {
+			var grid = this.up('wlgrid');
+			if (grid.getSelectionModel().hasSelection()) {
+				var selectedItems = grid.getSelectionModel().getSelection();
+				var firstSelect = selectedItems[0];
+
+				var win = Ext.create('DCMS.wl.OfferPositionWindow');
+				win.waitingListId = firstSelect.id;
+				var grid = this.up('wlgrid');
+				win.on('close', function(win) {
+					if (win.submitted) {
+						var dto = win.dataObject;
+
+						EnrollmentService.prepareEnrollment(dto, {
+							callback : function(result) {
+								grid.refresh();
+							},
+							errorHandler : function(error, errorMsg) {
+
+							}
+						});
+					}
+				}, win);
+
+				win.show();
+			}
+		}
 	}, {
 		itemId : 'confirmButton',
-		text : 'Confirm',
-		disabled : true
+		text : 'Contract Confirm',
+		hidden : true
+	}, {
+		itemId : 'contractFailButton',
+		text : 'Contract Fail',
+		hidden : true
+	}, {
+		itemId : 'removeButton',
+		text : 'Remove',
+		hidden : true
+	}, {
+		itemId : 'keepOnListButton',
+		text : 'Keep On List',
+		hidden : true
+	}, {
+		itemId : 'acceptButton',
+		text : 'Accept Offer',
+		hidden : true
+	}, {
+		itemId : 'noResponseButton',
+		text : 'Accept Offer',
+		hidden : true
+	}, {
+		itemId : 'deClineButton',
+		text : 'Decline Offer',
+		hidden : true
+	}, {
+		itemId : 'returnToListButton',
+		text : 'return to list',
+		hidden : true
+	}, {
+		itemId : 'enrollButton',
+		text : 'Enroll',
+		hidden : true
 	} ],
 	viewConfig : {
 		stripeRows : true,
@@ -85,19 +151,47 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 	},
 	listeners : {
 		select : function(view, records, index, eopts) {
-			var selected = this.getSelectionModel().hasSelection();
-			this.down('#confirmButton').setDisabled(!selected);
-			this.down('#offerButton').setDisabled(!selected);
+			debugger;
+			this.refreshButton();
 		},
 		deselect : function(view, records, index, eopts) {
-			debugger;
-
-			var selected = this.getSelectionModel().hasSelection();
-			this.down('#confirmButton').setDisabled(!selected);
-			this.down('#offerButton').setDisabled(!selected);
+			this.refreshButton();
 		},
 		afterrender : function() {
 			this.refresh();
+		}
+	},
+	refreshButton : function() {
+		debugger;
+		var selected = this.getSelectionModel().hasSelection();
+		if (selected) {
+			var selectedItems = this.getSelectionModel().getSelection();
+			var data = selectedItems[0].getData();
+			if (data.status == 'NEW') {
+				this.down('#removeButton').setHidden(!selected);
+				this.down('#offerButton').setHidden(!selected);
+				this.down('#keepOnListButton').setHidden(!selected);
+
+			} else if (data.status == 'OFFERED') {
+				this.down('#acceptButton').setHidden(!selected);
+				this.down('#noResponseButton').setHidden(selected);
+				this.down('#deClineButton').setHidden(selected);
+
+			}
+			// ACTIVE, OFFERED, CONFIRMED, INVALID, RETURNED, REMOVED
+			else if (data.status == 'CONTRACT_CONFIRMED') {
+				this.down('#enrollButton').setHidden(!selected);
+				this.down('#removeButton').setHidden(!selected);
+				this.down('#returnToListButton').setHidden(!selected);
+			} else if (data.status == 'DECLINED') {
+
+				this.down('#removeButton').setHidden(!selected);
+				this.down('#returnToListButton').setHidden(!selected);
+			} else if (data.status == 'ACCEPTED') {
+
+				this.down('#confirmButton').setHidden(!selected);
+				this.down('#contractFailButton').setHidden(!selected);
+			}
 		}
 	},
 	refresh : function() {
@@ -106,6 +200,23 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 			callback : function(result) {
 				if (result.success) {
 					var wl = result.waitingLists;
+					for (var i = 0; i < wl.length; i++) {
+						var wlitem = wl[i];
+						switch (wlitem.affiliation) {
+						case 0:
+							wlitem.affiliation = 'None';
+							break;
+						case 1:
+							wlitem.affiliation = 'Student';
+							break;
+						case 2:
+							wlitem.affiliation = 'Faculty';
+							break;
+						default:
+							break;
+						}
+					}
+
 					grid.store.setData(wl);
 				}
 			},

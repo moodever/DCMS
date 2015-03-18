@@ -97,6 +97,14 @@ public class Child extends Entity {
 		this.activeEnrollment = activeEnrollment;
 	}
 
+	public void removeEnrollment(Enrollment e) {
+		if (getActiveEnrollment().equals(e)) {
+			setActiveEnrollment(null);
+		}
+		e.getClassroom().removeEnrollment(e);
+		getEnrollments().remove(e);
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

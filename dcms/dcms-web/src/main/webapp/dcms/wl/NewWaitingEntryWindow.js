@@ -88,10 +88,10 @@ Ext.define('DCMS.wl.NewWaitingEntryWindow', {
 					editable : false,
 					anchor : '95%'
 				}, {
-					fieldLabel : 'Expected Grade',
+					fieldLabel : 'Expected Class',
 					xtype : 'combo',
 					itemId : 'expectGrade',
-					store : DCMS.wl.gradeStore,
+					store : DCMS.wl.classStore,
 					queryMode : 'local',
 					displayField : 'name',
 					valueField : 'value',

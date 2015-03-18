@@ -30,4 +30,11 @@
 		<property name="waitingListDao" ref="waitingListDao" />
 	</bean>
 
+	<bean id="enrollmentService"
+		class="org.kooobao.dcms.core.service.impl.DefaultEnrollmentService">
+		<property name="childDao" ref="childDao" />
+		<property name="waitingListDao" ref="waitingListDao" />
+		<property name="enrollmentDao" ref="enrollmentDao" />
+		<property name="classroomDao" ref="classroomDao" />
+	</bean>
 </beans>

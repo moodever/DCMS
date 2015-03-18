@@ -8,14 +8,16 @@ import org.kooobao.dcms.core.dao.ChildDao;
 import org.kooobao.dcms.core.dao.ClassroomDao;
 import org.kooobao.dcms.core.dao.EnrollmentDao;
 import org.kooobao.dcms.core.dao.WaitingListDao;
+import org.kooobao.dcms.core.entity.AttendingMode;
 import org.kooobao.dcms.core.entity.Child;
 import org.kooobao.dcms.core.entity.Classroom;
 import org.kooobao.dcms.core.entity.DateUtility;
 import org.kooobao.dcms.core.entity.Enrollment;
 import org.kooobao.dcms.core.entity.TimeSheet;
 import org.kooobao.dcms.core.entity.WaitingList;
+import org.kooobao.dcms.core.entity.WaitingList.DisplayStatus;
+import org.kooobao.dcms.core.entity.WaitingList.Status;
 import org.kooobao.dcms.core.service.EnrollmentService;
-import org.kooobao.dcms.core.service.ErrorCode;
 import org.kooobao.dcms.core.service.dto.ChangeClassDto;
 import org.kooobao.dcms.core.service.dto.ChangeClassResultDto;
 import org.kooobao.dcms.core.service.dto.ContractEndDto;
@@ -183,18 +185,13 @@ public class DefaultEnrollmentService implements EnrollmentService {
 
 		Enrollment currentEnrollment = currentChild.getActiveEnrollment();
 
-		currentEnrollment.setStatus(Enrollment.Status.OLD);
-
-		int num = currentEnrollment.getClassroom().getStudentNum();
-
-		currentEnrollment.getClassroom().setStudentNum(num - 1);
-
-		currentEnrollment.setClassroom(null);
-
-		currentEnrollment.getClassroom().getEnrollments()
-				.remove(currentEnrollment);
+		currentEnrollment.setStatus(Enrollment.Status.INVALID);
 
 		currentChild.setActiveEnrollment(null);
+
+		this.getChildDao().save(currentChild);
+
+		this.getEnrollmentDao().save(currentEnrollment);
 
 		ContractEndResultDto result = new ContractEndResultDto();
 		result.setSuccess(true);
@@ -205,18 +202,12 @@ public class DefaultEnrollmentService implements EnrollmentService {
 	public EnrollmentAcceptedResultDto enrollmentOfferAccepted(
 			EnrollStatusChangeDto input) {
 
-		Child currentChild;
-		int waitingEntryId = input.getWaitingListId();
+		WaitingList wl;
 
-		currentChild = this.getWaitingListDao().findById(waitingEntryId)
-				.getChild();
+		wl = this.getWaitingListDao().findById(input.getWaitingListId());
 
-		Enrollment currentEnrollment;
-
-		currentEnrollment = currentChild
-				.getEnrollment(Enrollment.Status.WAITCONFIRM);
-
-		currentEnrollment.setStatus(Enrollment.Status.WAITCONTRACT);
+		wl.setStatus(Status.ACCEPTED);
+		wl.setDisplayStatus(DisplayStatus.ACCEPTED);
 
 		EnrollmentAcceptedResultDto result = new EnrollmentAcceptedResultDto();
 		result.setSuccess(true);
@@ -227,38 +218,20 @@ public class DefaultEnrollmentService implements EnrollmentService {
 	public EnrollmentOfferRefusedResultDto enrollmentOfferRefused(
 			EnrollStatusChangeDto input) {
 
-		int waitingEntryId = input.getWaitingListId();
 		WaitingList waitingList = this.getWaitingListDao().findById(
-				waitingEntryId);
+				input.getWaitingListId());
 
 		Child currentChild = waitingList.getChild();
 
-		Enrollment currentEnrollment = this.getEnrollmentDao().findByStatus(
-				Enrollment.Status.WAITCONFIRM, currentChild.getId());
+		Enrollment currentEnrollment = this.getEnrollmentDao()
+				.findByStatusForChild(Enrollment.Status.PREPARE, currentChild);
 
-		// update classroom
-		// classroom number -1
+		this.getEnrollmentDao().delete(currentEnrollment);
 
-		int num = currentEnrollment.getClassroom().getStudentNum();
-
-		currentEnrollment.getClassroom().setStudentNum(num - 1);
-		currentEnrollment.getClassroom().getEnrollments()
-				.remove(currentEnrollment);
-
-		// get the newest enrollment
-		// delete the newest enrollment
-
-		currentEnrollment.setClassroom(null);
-
-		currentEnrollment.setStatus(Enrollment.Status.REFUSED);
-
-		currentChild.getEnrollments().remove(currentEnrollment);
-
-		waitingList.setStatus(WaitingList.Status.REMOVED);
+		waitingList.setStatus(Status.DECLINED);
+		waitingList.setDisplayStatus(DisplayStatus.DECLINED);
 
 		this.getWaitingListDao().save(waitingList);
-
-		this.getChildDao().save(currentChild);
 
 		EnrollmentOfferRefusedResultDto result = new EnrollmentOfferRefusedResultDto();
 		result.setSuccess(true);
@@ -269,41 +242,24 @@ public class DefaultEnrollmentService implements EnrollmentService {
 	public EnrollmentContractFailResultDto enrollmentContractFail(
 			EnrollStatusChangeDto input) {
 
-		int waitingEntryId = input.getWaitingListId();
 		WaitingList waitingList = this.getWaitingListDao().findById(
-				waitingEntryId);
+				input.getWaitingListId());
 
 		Child currentChild = waitingList.getChild();
 
-		// Enrollment currentEnrollment =
-		// this.getEnrollmentDao().findByStatus(Enrollment.Status.WAITCONTRACT,
-		// currentChild.getId());
+		Enrollment currentEnrollment = this.getEnrollmentDao()
+				.findByStatusForChild(Enrollment.Status.PREPARE, currentChild);
 
-		Enrollment currentEnrollment = currentChild
-				.getEnrollment(Enrollment.Status.WAITCONTRACT);
+		this.getEnrollmentDao().delete(currentEnrollment);
 
-		// update classroom
-		// classroom number -1
+		// can I delete enrollment by doing the following :
+		// currentChild.getEnrollments().remove(currentEnrollment); ????
+		// this.getChildDao().save(currentChild); ????
 
-		int num = currentEnrollment.getClassroom().getStudentNum();
-
-		currentEnrollment.getClassroom().setStudentNum(num - 1);
-		currentEnrollment.getClassroom().getEnrollments()
-				.remove(currentEnrollment);
-
-		// get the newest enrollment
-		// delete the newest enrollment
-
-		currentEnrollment.setClassroom(null);
-		currentEnrollment.setStatus(Enrollment.Status.REFUSED);
-
-		currentChild.getEnrollments().remove(currentEnrollment);
-
-		waitingList.setStatus(WaitingList.Status.REMOVED);
+		waitingList.setStatus(Status.DECLINED);
+		waitingList.setDisplayStatus(DisplayStatus.DECLINED);
 
 		this.getWaitingListDao().save(waitingList);
-
-		this.getChildDao().save(currentChild);
 
 		EnrollmentContractFailResultDto result = new EnrollmentContractFailResultDto();
 		result.setSuccess(true);
@@ -319,23 +275,18 @@ public class DefaultEnrollmentService implements EnrollmentService {
 		Child currentChild;
 		Enrollment currentEnrollment;
 		int waitingEntryId = input.getWaitingListId();
+		WaitingList wl = this.getWaitingListDao().findById(waitingEntryId);
 
-		currentChild = this.getWaitingListDao().findById(waitingEntryId)
-				.getChild();
-
-		currentChild.getEnrollment(Enrollment.Status.WAITCONTRACT).setStatus(
-				Enrollment.Status.EFFECTIVE);
+		currentChild = wl.getChild();
 
 		currentEnrollment = currentChild
-				.getEnrollment(Enrollment.Status.EFFECTIVE);
+				.getEnrollment(Enrollment.Status.PREPARE);
+
+		currentEnrollment.setStatus(Enrollment.Status.EFFECTIVE);
 
 		currentChild.setActiveEnrollment(currentEnrollment);
 
-		// How to set the Date to current time????
-		currentEnrollment.setAcceptDate(new Date());
-
-		this.getWaitingListDao().findById(waitingEntryId)
-				.setStatus(WaitingList.Status.REMOVED);
+		wl.setStatus(WaitingList.Status.REMOVED);
 
 		EnrollContractedResultDto result = new EnrollContractedResultDto();
 		result.setSuccess(true);
@@ -352,49 +303,64 @@ public class DefaultEnrollmentService implements EnrollmentService {
 		// 4. change waitingList status
 
 		Child child;
+		Classroom classroom;
+		TimeSheet timeSheet = new TimeSheet();
 		WaitingList waitingList;
+
+		timeSheet.setMondayTime(input.getMonTime());
+		timeSheet.setTuesdayTime(input.getTueTime());
+		timeSheet.setWednesdayTime(input.getWedTime());
+		timeSheet.setThursdayTime(input.getThuTime());
+		timeSheet.setFridayTime(input.getFriTime());
+
 		PrepareEnrollmentResultDto result = new PrepareEnrollmentResultDto();
 
 		waitingList = this.getWaitingListDao().findById(
 				input.getWaitingListId());
-
 		child = waitingList.getChild();
-
+		classroom = this.getClassroomDao().findByNameTerm(
+				input.getClassroomName(), input.getTerm());
+		if (classroom == null) {
+			result.setSuccess(false);
+			result.setErrorMessage("No classroom found");
+			return result;
+		}
 		Enrollment enrollment = new Enrollment();
 
 		enrollment.setChild(child);
 		enrollment.setContractTo(input.getContractTo());
 		enrollment.setContractFrom(input.getContractFrom());
-		enrollment.setTimeSheet(input.getTimeSheet());
+		enrollment.setTimeSheet(timeSheet);
+		enrollment.setAttendingMode(AttendingMode.values()[input
+				.getAttendingMode()]);
+		enrollment.setAcceptDate(input.getAcceptDate());
 
-		enrollment.setTerm(input.getTerm());
-		enrollment.setStatus(Enrollment.Status.WAITCONFIRM);
-		enrollment.setAttendingMode(input.getAttendingMode());
+		enrollment.setClassroom(classroom);
+		// ???? classroom set enrollment???
+		// classroom.setStudentNum(classroom.getStudentNum() + 1);
+		waitingList.setStatus(WaitingList.Status.OFFERED);
+		waitingList.setDisplayStatus(WaitingList.DisplayStatus.OFFERED);
+		waitingList.setOfferedDate(input.getAcceptDate());
+		enrollment.setStatus(Enrollment.Status.PREPARE);
 
-		child.getEnrollments().add(enrollment);
+		getClassroomDao().save(classroom);
+		getEnrollmentDao().save(enrollment);
+		getWaitingListDao().save(waitingList);
 
-		if (enrollment.getClassroom().getStudentNum() < enrollment
-				.getClassroom().getCapacity()) {
-			enrollment.setClassroom(input.getClassroom());
-			enrollment.getClassroom().setStudentNum(
-					enrollment.getClassroom().getStudentNum() + 1);
+		result.setSuccess(true);
+		return result;
 
-			getEnrollmentDao().save(enrollment);
-
-			waitingList.setStatus(WaitingList.Status.OFFERED);
-
-			result.setSuccess(true);
-			return result;
-
-		}
-
-		else {
-
-			result.setErrorCode(ErrorCode.ClassroomFull);
-			result.setSuccess(false);
-			return result;
-
-		}
+		/*
+		 * check if the enrollment term = current term ,then check ... if
+		 * (classroom.getStudentNum() < classroom.getCapacity()) {
+		 * 
+		 * }
+		 * 
+		 * else {
+		 * 
+		 * result.setErrorCode(ErrorCode.ClassroomFull);
+		 * result.setSuccess(false); return result; }
+		 */
 
 	};
 

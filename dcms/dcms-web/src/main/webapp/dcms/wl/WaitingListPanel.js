@@ -14,20 +14,6 @@ DCMS.wl.affiliationStore = Ext.create('Ext.data.Store', {
 	} ]
 });
 
-DCMS.wl.gradeStore = Ext.create('Ext.data.Store', {
-	fields : [ 'name', 'value' ],
-	data : [ {
-		"name" : "Infant",
-		"value" : 0
-	}, {
-		"name" : "Toddler",
-		"value" : 1
-	}, {
-		"name" : "Super Toddler",
-		"value" : 2
-	} ]
-});
-
 DCMS.wl.attendingModeStore = Ext.create('Ext.data.Store', {
 	fields : [ 'name', 'value' ],
 	data : [ {
@@ -39,6 +25,58 @@ DCMS.wl.attendingModeStore = Ext.create('Ext.data.Store', {
 	}, {
 		"name" : "Tue, Thu",
 		"value" : 2
+	} ]
+});
+
+DCMS.wl.classStore = Ext.create('Ext.data.Store', {
+	fields : [ 'name', 'value' ],
+	data : [ {
+		'name' : 'Infant',
+		"value" : 'Infant'
+	}, {
+		'name' : 'Toddler1',
+		'value' : 'Toddler1'
+	}, {
+		'name' : 'Toddler2',
+		'value' : 'Toddler2'
+	}, {
+		'name' : 'Progressive Room',
+		'value' : 'Progressive Room'
+	}, {
+		'name' : "Preschool3",
+		'value' : 'Preschool3'
+	}, {
+		'name' : 'Preschool4',
+		'value' : 'Preschool4'
+	}, {
+		'name' : 'School Age',
+		'value' : 'School Age'
+	} ]
+});
+
+DCMS.wl.termStore = Ext.create('Ext.data.Store', {
+	fields : [ 'name', 'value' ],
+	data : [ {
+		'name' : 'Spring 15',
+		"value" : 0
+	}, {
+		'name' : 'Fall 15',
+		'value' : 1
+	}, {
+		'name' : 'Spring 16',
+		'value' : 2
+	}, {
+		'name' : 'Fall 16',
+		'value' : 3
+	}, {
+		'name' : "Spring 17",
+		'value' : 4
+	}, {
+		'name' : 'Fall 17',
+		'value' : 5
+	}, {
+		'name' : 'Spring 18',
+		'value' : 6
 	} ]
 });
 

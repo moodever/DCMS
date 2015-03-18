@@ -22,15 +22,23 @@ import org.kooobao.common.dao.Entity;
 public class Enrollment extends Entity {
 
 	public static enum Status {
-		WAITCONFIRM, WAITCONTRACT, EFFECTIVE, OLD, INVALID, REFUSED
+		PREPARE, EFFECTIVE, INVALID
 	}
+
+	/*
+	 * WaitingList Status
+	 * 
+	 * public static enum Status { NEW, OFFERED, ACCEPTED, DECLINED, REMOVED,
+	 * CONTRACT_CONFIRMED, ENROLLED}
+	 * 
+	 * public static enum DisplayStatus { NEW, KEEP_ON_LIST,
+	 * RETURNED_TO_LIST,OFFERED
+	 * ,ACCEPTED,NO_RESPONSE,DECLINED,REMOVED,CONTRACT_CONFIRMED,ENROLLED }
+	 */
 
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private Status status;
-
-	@Column(name = "term")
-	private String term;
 
 	@Column(name = "contract_from_date")
 	@Temporal(TemporalType.DATE)
@@ -47,10 +55,11 @@ public class Enrollment extends Entity {
 	@Column(name = "contract_from")
 	@Temporal(TemporalType.DATE)
 	private Date firstDate;
-
+	
 	@Column(name = "attending_mode")
-	private String attendingMode;
-
+	@Enumerated(EnumType.STRING)
+	private AttendingMode attendingMode;
+	
 	@OneToOne
 	@JoinColumn(name = "classroom_id")
 	private Classroom classroom;
@@ -62,8 +71,12 @@ public class Enrollment extends Entity {
 	@Embedded
 	private TimeSheet timeSheet;
 
-	public String getAttendingMode() {
+	public AttendingMode getAttendingMode() {
 		return attendingMode;
+	}
+	
+	public void setAttendingMode(AttendingMode attendingMode) {
+		this.attendingMode = attendingMode;
 	}
 
 	public Child getChild() {
@@ -82,9 +95,7 @@ public class Enrollment extends Entity {
 		this.timeSheet = timeSheet;
 	}
 
-	public void setAttendingMode(String attendingMode) {
-		this.attendingMode = attendingMode;
-	}
+	
 
 	public Classroom getClassroom() {
 		return classroom;
@@ -100,14 +111,6 @@ public class Enrollment extends Entity {
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-
-	public String getTerm() {
-		return term;
-	}
-
-	public void setTerm(String term) {
-		this.term = term;
 	}
 
 	public Date getContractFrom() {

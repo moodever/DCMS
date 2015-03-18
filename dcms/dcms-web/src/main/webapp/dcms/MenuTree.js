@@ -82,6 +82,7 @@ Ext.define("DCMS.MenuTree", {
 	id : 'menutree',
 	store : DCMS.menuTree.menuStore,
 	rootVisible : false,
+	collapsed : false,
 	width : 200,
 	listeners : {
 		select : function(tree, record, row, opt) {
@@ -89,6 +90,9 @@ Ext.define("DCMS.MenuTree", {
 			if (record.raw.leaf) {
 				DCMS.menuTree.displayNode(record.raw.id);
 			}
+		},
+		afterrender : function(eopts) {
+			this.expandAll();
 		}
 	}
 });

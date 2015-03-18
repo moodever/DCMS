@@ -13,6 +13,9 @@ public class WaitingListDto {
 	private int affiliation;
 
 	private String status;
+	
+
+	private String displayStatus;
 
 	public int getId() {
 		return id;
@@ -53,5 +56,14 @@ public class WaitingListDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getDisplayStatus() {
+		return displayStatus;
+	}
+
+	public void setDisplayStatus(String displayStatus) {
+		this.displayStatus = displayStatus;
+	}
+
 
 }

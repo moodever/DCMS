@@ -32,7 +32,7 @@ public class SaveWaitingEntryDto extends Dto {
 	private int expectGrade;
 	private String note;
 	private int customizedSequence;
-	private String attendingMode;
+	private int attendingMode;
 
 	private String childFirstName;
 	private String childMiddleName;
@@ -100,11 +100,11 @@ public class SaveWaitingEntryDto extends Dto {
 		this.customizedSequence = customizedSequence;
 	}
 
-	public String getAttendingMode() {
+	public int getAttendingMode() {
 		return attendingMode;
 	}
 
-	public void setAttendingMode(String attendingMode) {
+	public void setAttendingMode(int attendingMode) {
 		this.attendingMode = attendingMode;
 	}
 

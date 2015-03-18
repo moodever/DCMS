@@ -21,8 +21,12 @@ Ext.define('DCMS.common.DataCollector', {
 				}
 				datatarget = object[splitkey[si]];
 			}
-			datatarget[splitkey[splitkey.length - 1]] = target.down('#'
-					+ mapping.itemId).value;
+			var item = target.down('#' + mapping.itemId);
+			if (item != null) {
+				datatarget[splitkey[splitkey.length - 1]] = item.value;
+			} else {
+				alert(mapping.itemId + " cannot find");
+			}
 		}
 		return object;
 	}

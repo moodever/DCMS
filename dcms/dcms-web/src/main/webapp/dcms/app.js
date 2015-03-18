@@ -7,7 +7,7 @@ Ext.Loader.setConfig({
 Ext.require([ 'DCMS.common.DataCollector' ]);
 Ext.require([ 'DCMS.MainViewPort', 'DCMS.SummaryPanel', 'DCMS.MenuTree' ]);
 Ext.require([ 'DCMS.wl.WaitingListPanel', 'DCMS.wl.WaitingListGrid',
-		'DCMS.wl.NewWaitingEntryWindow' ]);
+		'DCMS.wl.NewWaitingEntryWindow', 'DCMS.wl.OfferPositionWindow' ]);
 
 Ext.define('Ext.overrides.selection.CheckboxModel', {
 	override : 'Ext.selection.CheckboxModel',
@@ -18,7 +18,7 @@ Ext.define('Ext.overrides.selection.CheckboxModel', {
 			if (!e.shiftKey && !e.ctrlKey && e.getTarget(me.checkSelector)) {
 				if (isSelected) {
 					me.doDeselect(record); // Second param here is suppress
-											// event, not "keep selection"
+					// event, not "keep selection"
 				} else {
 					me.doSelect(record, true);
 				}

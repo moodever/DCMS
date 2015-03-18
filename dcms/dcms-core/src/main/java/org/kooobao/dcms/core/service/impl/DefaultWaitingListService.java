@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.kooobao.dcms.core.dao.ChildDao;
 import org.kooobao.dcms.core.dao.WaitingListDao;
+import org.kooobao.dcms.core.entity.AttendingMode;
 import org.kooobao.dcms.core.entity.Child;
 import org.kooobao.dcms.core.entity.Contact;
 import org.kooobao.dcms.core.entity.WaitingList;
@@ -35,7 +36,7 @@ public class DefaultWaitingListService implements WaitingListService {
 		WaitingList waitingList;
 		waitingList = this.getWaitingListDao().findById(
 				input.getWaitingListID());
-		waitingList.setStatus(Status.values()[input.getWaitingListStatus()]);
+		waitingList.setStatus(Status.valueOf((input.getWaitingListStatus())));
 
 		getWaitingListDao().save(waitingList);
 
@@ -104,7 +105,7 @@ public class DefaultWaitingListService implements WaitingListService {
 		child = getChildDao().save(child);
 
 		waitingList.setApplicationDate(input.getApplicationDate());
-		waitingList.setAttendingMode(input.getAttendingMode());
+		waitingList.setAttendingMode(AttendingMode.values()[input.getAttendingMode()]);
 		waitingList.setCustomizedSequence(input.getCustomizedSequence());
 		waitingList.setDesireDate(input.getDesireDate());
 		waitingList.setExpectGrade(input.getExpectGrade());
@@ -158,6 +159,7 @@ public class DefaultWaitingListService implements WaitingListService {
 					wl.getChild().getLastName()));
 			wldtos[counter].setDateOfBirth(wl.getChild().getDateBirth());
 			wldtos[counter].setStatus(wl.getStatus().name());
+			wldtos[counter].setDisplayStatus(wl.getDisplayStatus().name());
 			wldtos[counter].setAffiliation(wl.getChild().getAffliation());
 			counter++;
 		}

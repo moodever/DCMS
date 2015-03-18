@@ -18,8 +18,24 @@ import org.kooobao.common.dao.Entity;
 @Table(name = "dcms_waitinglist")
 public class WaitingList extends Entity {
 
+	
+	/*
+	New, Keep on List, Returned to List -> (New)
+	Offered -> (Offered)
+	Accepted -> (Accepted)
+	No Response, Declined -> (Declined)
+	Removed -> (Removed)
+	Contract Confirmed -> Confirmed
+	Enrolled -> Enrolled
+	
+	*/
+	
 	public static enum Status {
-		ACTIVE, OFFERED, CONFIRMED, INVALID, RETURNED, REMOVED
+		NEW, OFFERED, ACCEPTED, DECLINED, REMOVED, CONTRACT_CONFIRMED, ENROLLED
+	}
+
+	public static enum DisplayStatus {
+		NEW, KEEP_ON_LIST, RETURNED_TO_LIST,OFFERED,ACCEPTED,NO_RESPONSE,DECLINED,REMOVED,CONTRACT_CONFIRMED,ENROLLED
 	}
 
 	@Column(name = "desire_date")
@@ -38,6 +54,10 @@ public class WaitingList extends Entity {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
+	@Column(name = "display_status")
+	@Enumerated(EnumType.STRING)
+	private DisplayStatus displayStatus;
+
 	@Column(name = "expect_grade")
 	private int expectGrade;
 
@@ -48,17 +68,18 @@ public class WaitingList extends Entity {
 	private int customizedSequence;
 
 	@Column(name = "attending_mode")
-	private String attendingMode;
+	@Enumerated(EnumType.STRING)
+	private AttendingMode attendingMode;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "child")
 	private Child child;
 
-	public String getAttendingMode() {
+	public AttendingMode getAttendingMode() {
 		return attendingMode;
 	}
 
-	public void setAttendingMode(String attendingMode) {
+	public void setAttendingMode(AttendingMode attendingMode) {
 		this.attendingMode = attendingMode;
 	}
 
@@ -124,6 +145,62 @@ public class WaitingList extends Entity {
 
 	public String getNote() {
 		return note;
+	}
+
+	public DisplayStatus getDisplayStatus() {
+		return displayStatus;
+	}
+
+	public void setDisplayStatus(DisplayStatus displayStatus) {
+		this.displayStatus = displayStatus;
+	}
+	
+	public static Status getMatchedStatus(DisplayStatus displayStatus){
+		
+		
+		if(displayStatus == DisplayStatus.NEW){
+			return Status.NEW;
+		}
+		
+		if(displayStatus == DisplayStatus.KEEP_ON_LIST){
+			return Status.NEW;
+		}
+		
+		if(displayStatus == DisplayStatus.RETURNED_TO_LIST){
+			return Status.NEW;
+		}
+		if(displayStatus == DisplayStatus.OFFERED){
+			return Status.OFFERED;
+		}
+		
+		if(displayStatus == DisplayStatus.ACCEPTED){
+			return Status.ACCEPTED;
+		}
+		
+		if(displayStatus == DisplayStatus.DECLINED){
+			return Status.DECLINED;
+		}
+		
+		if(displayStatus == DisplayStatus.NO_RESPONSE){
+			return Status.DECLINED;
+		}
+		
+		
+		if(displayStatus == DisplayStatus.REMOVED){
+			return Status.REMOVED;
+		}
+		
+		if(displayStatus == DisplayStatus.CONTRACT_CONFIRMED){
+			return Status.CONTRACT_CONFIRMED;
+		}
+		
+		if(displayStatus == DisplayStatus.ENROLLED){
+			return Status.ENROLLED;
+		}
+		
+		return null;
+		
+		
 	}
 
 }

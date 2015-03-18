@@ -14,9 +14,9 @@ public class JpaWaitingListDao extends JpaDao<WaitingList> implements
 	public List<WaitingList> findValid() {
 		String sql = "select wl from WaitingList wl where wl.status in (:active, :offer, :confirm)";
 		return getEntityManager().createQuery(sql, WaitingList.class)
-				.setParameter("active", Status.ACTIVE)
+				.setParameter("active", Status.NEW)
 				.setParameter("offer", Status.OFFERED)
-				.setParameter("confirm", Status.CONFIRMED).getResultList();
+				.setParameter("confirm", Status.CONTRACT_CONFIRMED).getResultList();
 	}
 
 }

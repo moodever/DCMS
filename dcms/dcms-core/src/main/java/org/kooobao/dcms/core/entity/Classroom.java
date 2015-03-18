@@ -1,5 +1,9 @@
 package org.kooobao.dcms.core.entity;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,17 +22,28 @@ public class Classroom extends Entity {
 	@Column(name = "grade")
 	private int grade;
 
+	@Column(name = "term")
+	private String term;
+
 	@Column(name = "student_num")
-	private int studentNum;
+	private Integer studentNum;
 
 	@Column(name = "capacity")
 	private int capacity;
-	
-	@Column(name = "ageFrom")
+
+	@Column(name = "age_from")
 	private double ageFrom;
-	
-	@Column(name = "ageTo")
-	private double ageTo;	
+
+	@Column(name = "age_to")
+	private double ageTo;
+
+	@OneToMany(mappedBy = "classroom")
+	private List<Enrollment> enrollments;
+
+	public Classroom() {
+		super();
+		enrollments = new ArrayList<Enrollment>();
+	}
 
 	public double getAgeFrom() {
 		return ageFrom;
@@ -46,9 +61,6 @@ public class Classroom extends Entity {
 		this.ageTo = ageTo;
 	}
 
-	@OneToMany(mappedBy = "classroom")
-	private List<Enrollment> enrollments;
-
 	public List<Enrollment> getEnrollments() {
 		return enrollments;
 	}
@@ -57,11 +69,30 @@ public class Classroom extends Entity {
 		this.enrollments = enrollments;
 	}
 
-	public int getStudentNum() {
+	public void addEnrollment(Enrollment e) {
+		this.enrollments.add(e);
+		setStudentNum(getStudentNum() + 1);
+	}
+
+	protected void removeEnrollment(Enrollment e) {
+		getEnrollments().remove(e);
+		int currentNum = getStudentNum();
+		setStudentNum(currentNum - 1);
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public Integer getStudentNum() {
 		return studentNum;
 	}
 
-	public void setStudentNum(int studentNum) {
+	public void setStudentNum(Integer studentNum) {
 		this.studentNum = studentNum;
 	}
 
@@ -89,4 +120,18 @@ public class Classroom extends Entity {
 		this.grade = grade;
 	}
 
+	public static String calculateTerm(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		String term = "unknown";
+		year -= 2000;
+		if (month >= Calendar.JANUARY && month <= Calendar.MAY) {
+			term = "spring";
+		} else if (month >= Calendar.SEPTEMBER && month <= Calendar.DECEMBER) {
+			term = "fall";
+		}
+		return MessageFormat.format("{0}{1}", term, year);
+	}
 }

@@ -6,6 +6,7 @@ public class FindWaitingListResultDto extends ResultDto {
 
 	private WaitingListDto[] waitingLists;
 
+
 	public WaitingListDto[] getWaitingLists() {
 		return waitingLists;
 	}

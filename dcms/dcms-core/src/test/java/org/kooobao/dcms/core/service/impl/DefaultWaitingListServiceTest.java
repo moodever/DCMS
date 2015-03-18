@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kooobao.dcms.core.dao.MemoryChildDao;
 import org.kooobao.dcms.core.dao.MemoryWaitingListDao;
+import org.kooobao.dcms.core.dao.MemoryClassroomDao;
 import org.kooobao.dcms.core.entity.WaitingList;
 import org.kooobao.dcms.core.entity.WaitingList.Status;
 import org.kooobao.dcms.core.service.dto.NotifyWaitingListDto;
@@ -18,14 +19,21 @@ public class DefaultWaitingListServiceTest {
 	private MemoryChildDao childDao;
 
 	private MemoryWaitingListDao waitingListDao;
+	
+	//private MemoryClassroomDao classroomDao;
 
 	@Before
 	public void prepare() {
 		service = new DefaultWaitingListService();
+		
 		childDao = new MemoryChildDao();
 		service.setChildDao(childDao);
+		
 		waitingListDao = new MemoryWaitingListDao();
 		service.setWaitingListDao(waitingListDao);
+		
+		
+		
 
 		WaitingList wl1 = new WaitingList();
 		wl1.setId(1);
@@ -38,14 +46,14 @@ public class DefaultWaitingListServiceTest {
 	public void testNotifyWaitingList() {
 		NotifyWaitingListDto input = new NotifyWaitingListDto();
 		input.setWaitingListID(1);
-		input.setWaitingListStatus(Status.CONFIRMED.ordinal());
+		input.setWaitingListStatus(Status.CONTRACT_CONFIRMED.toString());
 		NotifyWaitingListResultDto result = service.notifyWaitingList(input);
 
 		assertTrue(result.isSuccess());
 
 		WaitingList wl = waitingListDao.findById(1);
 
-		assertEquals(Status.CONFIRMED, wl.getStatus());
+		assertEquals(Status.CONTRACT_CONFIRMED, wl.getStatus());
 		
 	}
 

@@ -31,6 +31,7 @@ CREATE TABLE dcms_waitinglist (
     note VARCHAR(255),
     offered_date DATE,
     status VARCHAR(20),
+    display_status VARCHAR(20),
     child INTEGER(10),
     PRIMARY KEY (id)
 );
@@ -41,8 +42,7 @@ CREATE TABLE dcms_enrollment (
     contract_from_date DATE,
     contract_to_date DATE,
     contract_from DATE,
-    STATUS VARCHAR(20),
-    TERM VARCHAR(50),
+    status VARCHAR(20),
     fri_time VARCHAR(255),
     mon_time VARCHAR(255),
     thu_time VARCHAR(255),
@@ -57,7 +57,10 @@ CREATE TABLE dcms_classroom (
     capacity INTEGER(5),
     grade INTEGER(2),
     name VARCHAR(100),
+    term VARCHAR(50),
     student_num INTEGER(5),
+    age_from INTEGER(5),
+    age_to INTEGER(5),
     PRIMARY KEY (id)
 );
 CREATE TABLE dcms_event_log (

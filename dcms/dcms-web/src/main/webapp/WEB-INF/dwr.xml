@@ -13,6 +13,11 @@
 			<include method="findWaitingList" />
 		</create>
 
+		<create creator="spring" javascript="EnrollmentService">
+			<param name="beanName" value="enrollmentService" />
+			<include method="prepareEnrollment" />
+		</create>
+
 		<convert converter="bean" match="org.kooobao.dcms.core.service.dto.*" />
 
 		<!-- this is a bad idea for live, but can be useful in testing -->
