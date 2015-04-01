@@ -22,7 +22,7 @@ import org.kooobao.common.dao.Entity;
 public class Enrollment extends Entity {
 
 	public static enum Status {
-		PREPARE, EFFECTIVE, INVALID
+		PREPARE, EFFECTIVE,INVALID,EXPIRED
 	}
 
 	/*

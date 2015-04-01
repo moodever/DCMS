@@ -11,11 +11,28 @@
 			<include method="saveWaitingEntry" />
 			<include method="deleteWaitingEntry" />
 			<include method="findWaitingList" />
+			<include method="findEnrollmentList"/>
 		</create>
 
 		<create creator="spring" javascript="EnrollmentService">
 			<param name="beanName" value="enrollmentService" />
 			<include method="prepareEnrollment" />
+			<include method="enrollmentContracted" />
+			<include method="enrollmentContractFail" />
+			<include method="enrollmentOfferRefused" />
+			<include method="enrollmentOfferAccepted" />
+			<include method="contractEnded" />
+			<include method="removeWaitingEntry" />
+			<include method="returnToList" />
+			<include method="setEnrollStatus" />
+			<include method="generateEnrolChart" />
+			<include method="projectEnrolChart" />
+		</create>
+		
+		<create creator="spring" javascript="SettingService">
+			<param name="beanName" value="settingService" />
+			<include method="generateClassForTerm" />
+		
 		</create>
 
 		<convert converter="bean" match="org.kooobao.dcms.core.service.dto.*" />

@@ -5,14 +5,14 @@ import org.kooobao.dcms.core.dto.ResultDto;
 public class GenerateEnrolChartResultDto extends ResultDto{
 
 	
-	KidsChartNodeDto[] kidsChartNodeDto;
+	private KidsChartNodeDto[] kidsChartNodes;
 
-	public KidsChartNodeDto[] getKidsChartNodeDto() {
-		return kidsChartNodeDto;
+	public KidsChartNodeDto[] getKidsChartNodes() {
+		return kidsChartNodes;
 	}
 
-	public void setKidsChartNodeDto(KidsChartNodeDto[] kidsChartNodeDto) {
-		this.kidsChartNodeDto = kidsChartNodeDto;
+	public void setKidsChartNodeDto(KidsChartNodeDto[] kidsChartNodes) {
+		this.kidsChartNodes = kidsChartNodes;
 	}
 	
 	

@@ -59,7 +59,7 @@ public class WaitingList extends Entity {
 	private DisplayStatus displayStatus;
 
 	@Column(name = "expect_grade")
-	private int expectGrade;
+	private String expectGrade;
 
 	@Column(name = "note")
 	private String note;
@@ -119,11 +119,11 @@ public class WaitingList extends Entity {
 		this.status = status;
 	}
 
-	public int getExpectGrade() {
+	public String getExpectGrade() {
 		return expectGrade;
 	}
 
-	public void setExpectGrade(int expectGrade) {
+	public void setExpectGrade(String expectGrade) {
 		this.expectGrade = expectGrade;
 	}
 

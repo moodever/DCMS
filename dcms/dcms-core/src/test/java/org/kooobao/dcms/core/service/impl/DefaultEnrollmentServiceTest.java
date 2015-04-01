@@ -1,8 +1,11 @@
 package org.kooobao.dcms.core.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Before;
@@ -14,9 +17,17 @@ import org.kooobao.dcms.core.dao.MemoryWaitingListDao;
 import org.kooobao.dcms.core.entity.Child;
 import org.kooobao.dcms.core.entity.Classroom;
 import org.kooobao.dcms.core.entity.Enrollment;
+import org.kooobao.dcms.core.entity.TimeSheet;
 import org.kooobao.dcms.core.entity.WaitingList;
 import org.kooobao.dcms.core.entity.WaitingList.DisplayStatus;
 import org.kooobao.dcms.core.entity.WaitingList.Status;
+import org.kooobao.dcms.core.service.dto.ContractEndDto;
+import org.kooobao.dcms.core.service.dto.ContractEndResultDto;
+import org.kooobao.dcms.core.service.dto.EnrollStatusChangeDto;
+import org.kooobao.dcms.core.service.dto.EnrollmentContractFailResultDto;
+import org.kooobao.dcms.core.service.dto.GenerateEnrolChartDto;
+import org.kooobao.dcms.core.service.dto.GenerateEnrolChartResultDto;
+import org.kooobao.dcms.core.service.dto.KidsChartNodeDto;
 import org.kooobao.dcms.core.service.dto.PrepareEnrollmentDto;
 import org.kooobao.dcms.core.service.dto.PrepareEnrollmentResultDto;
 
@@ -53,22 +64,25 @@ public class DefaultEnrollmentServiceTest {
 		clsrm1.setStudentNum(1);
 		clsrm1.setTerm("spring15");
 		
-		// .....
-		classroomDao.save(clsrm1);
+		// Child 1
 		
-
 		Child c1 = new Child();
 		c1.setId(1);
 		c1.setLastName("Ma");
 		c1.setFirstName("Yun");
-		
-		// ....
+		c1.setDateBirth(new Date());
+		c1.setAffliation(1);
+		c1.setNote("Good Kids");
 		childDao.save(c1);
 
+		// Child 2 
 		Child c2 = new Child();
 		c2.setId(2);
 		c2.setFirstName("Helen");
 		c2.setLastName("Gu");
+		c2.setDateBirth(new Date());
+		c2.setAffliation(2);;
+		c2.setNote("Bad kids");
 		childDao.save(c2);
 
 		Enrollment e = new Enrollment();
@@ -76,18 +90,62 @@ public class DefaultEnrollmentServiceTest {
 		e.setClassroom(clsrm1);
 		e.setId(1);
 		e.setAcceptDate(new Date());
-		e.setStatus(Enrollment.Status.PREPARE);
-		//e.setTerm("Spring15");
-		// ....
+		e.setStatus(Enrollment.Status.EFFECTIVE);
+		
+		
+		TimeSheet timeSheet = new TimeSheet();
+		timeSheet.setMondayTime("9:00-3:00");
+		timeSheet.setTuesdayTime("10:00-4:00");
+		timeSheet.setWednesdayTime("9:00-3:00");
+		timeSheet.setThursdayTime("10:00-4:00");
+		timeSheet.setFridayTime("11:00-5:00");
+		e.setTimeSheet(timeSheet);
+		
+		
+		c1.setActiveEnrollment(e);
+		c1.getEnrollments().add(e);
+		clsrm1.addEnrollment(e);
+		
+		c1.setActiveEnrollment(e);
+		c1.getEnrollments().add(e);
+		clsrm1.addEnrollment(e);
+		
+		
+		// creat another enrollment for c2
+		
+		Enrollment e2 = new Enrollment();
+		e2.setChild(c2);
+		e2.setClassroom(clsrm1);
+		e2.setId(2);
+		e2.setAcceptDate(new Date());
+		e2.setStatus(Enrollment.Status.EFFECTIVE);
+		
+		
+		TimeSheet timeSheet2 = new TimeSheet();
+		timeSheet.setMondayTime("7:00-1:00");
+		timeSheet.setTuesdayTime("8:00-2:00");
+		timeSheet.setWednesdayTime("7:00-1:00");
+		timeSheet.setThursdayTime("8:00-2:00");
+		timeSheet.setFridayTime("7:00-1:00");
+		e2.setTimeSheet(timeSheet2);
+		
+
+		c2.setActiveEnrollment(e2);
+		c2.getEnrollments().add(e2);
+		clsrm1.addEnrollment(e2);
+		
 		enrollmentDao.save(e);
+		enrollmentDao.save(e2);
+		childDao.save(c1);
+		childDao.save(c2);
+		classroomDao.save(clsrm1);
 		
 		//ArrayList<WaitingList> wList = new ArrayList<WaitingList>(); 
 		
-		
 		WaitingList wl_a=new WaitingList();
 		wl_a.setChild(c1);
-		wl_a.setStatus(Status.NEW);
-		wl_a.setDisplayStatus(DisplayStatus.KEEP_ON_LIST);
+		wl_a.setStatus(Status.OFFERED);
+		wl_a.setDisplayStatus(DisplayStatus.OFFERED);
 		wl_a.setId(100);
 		//wList.add(wl_a);
 		
@@ -102,8 +160,6 @@ public class DefaultEnrollmentServiceTest {
 		waitingListDao.save(wl_a);
 		waitingListDao.save(wl_b);
 		
-
-		
 	}
 
 	@Test
@@ -113,17 +169,41 @@ public class DefaultEnrollmentServiceTest {
 
 	@Test
 	public void testProjectEnrolChart() {
+		
 		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testGenerateEnrolChart() {
-		fail("Not yet implemented");
+		GenerateEnrolChartDto input = new GenerateEnrolChartDto(); 
+		input.setClassroomName("Infant");
+		GenerateEnrolChartResultDto result = service.generateEnrolChart(input);
+		
+		KidsChartNodeDto[] kidsNodes = result.getKidsChartNodes();
+		
+		assertTrue(kidsNodes[0].getFirstName()!= null);
+		assertTrue(kidsNodes[1].getFirstName()!= null);
+		
 	}
 
 	@Test
 	public void testContractEnded() {
-		fail("Not yet implemented");
+		ContractEndDto input = new ContractEndDto();
+		input.setChildId(3);
+		
+		Enrollment e = new Enrollment();
+		
+		e = childDao.findById(input.getChildId()).getActiveEnrollment();
+				
+		ContractEndResultDto result = service.contractEnded(input);
+			
+		assertEquals(null, childDao.findById(input.getChildId()).getActiveEnrollment());
+		assertEquals(classroomDao.findById(1).getEnrollments().get(0).getStatus(),Enrollment.Status.INVALID);
+		assertEquals(e.getStatus(),Enrollment.Status.INVALID);
+		assertEquals(enrollmentDao.findById(e.getId()).getStatus(),Enrollment.Status.INVALID);
+		assertTrue(result.isSuccess());
+		
 	}
 
 	@Test
@@ -138,7 +218,20 @@ public class DefaultEnrollmentServiceTest {
 
 	@Test
 	public void testEnrollmentContractFail() {
-		fail("Not yet implemented");
+		
+		EnrollStatusChangeDto input = new EnrollStatusChangeDto();
+		input.setWaitingListId(100);
+		
+		Child currentChild = waitingListDao.findById(input.getWaitingListId()).getChild();
+		Enrollment e = enrollmentDao.findByStatusForChild(Enrollment.Status.PREPARE, currentChild);
+		
+		EnrollmentContractFailResultDto result = service.enrollmentContractFail(input);
+		
+		assertTrue(result.isSuccess());
+		assertEquals(WaitingList.Status.DECLINED, waitingListDao.findById(input.getWaitingListId()).getStatus());
+		assertFalse(currentChild.getEnrollments().contains(e));
+		
+		
 	}
 
 	@Test

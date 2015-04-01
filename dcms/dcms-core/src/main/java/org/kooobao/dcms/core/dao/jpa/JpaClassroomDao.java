@@ -1,5 +1,7 @@
 package org.kooobao.dcms.core.dao.jpa;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import org.kooobao.common.dao.JpaDao;
@@ -19,6 +21,14 @@ public class JpaClassroomDao extends JpaDao<Classroom> implements ClassroomDao {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Classroom> findByTerm(String term) {
+		String sql = "select c from Classroom c where c.term = :term";
+		return getEntityManager().createQuery(sql, Classroom.class)
+				.setParameter("term", term).getResultList();
+
 	}
 
 }

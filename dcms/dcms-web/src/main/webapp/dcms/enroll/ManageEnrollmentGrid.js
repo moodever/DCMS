@@ -1,4 +1,4 @@
-Ext.define('DCMS.wl.WaitingListModel', {
+Ext.define('DCMS.enroll.WaitingListModel', {
 	extend : 'Ext.data.Model',
 	fields : [ {
 		name : 'id'
@@ -13,134 +13,48 @@ Ext.define('DCMS.wl.WaitingListModel', {
 		name : 'status'
 	}, {
 		name : 'displayStatus'
-	}, {
-		name : 'phone'
-	}, {
-		name : 'applicationDate',
-		type : 'date'
-	}, {
-		name : 'desireDate',
-		type : 'date'
-	}, {
-		name : 'expectGrade'
-	}, {
-		name : 'attendingMode'
-	}, {
-		name : 'firstParentName'
-	}, {
-		name : 'firstParentRole'
-	}, {
-		name : 'firstParentStatus'
-	}, {
-		name : 'secondParentName'
-	}, {
-		name : 'secondParentRole'
-	}, {
-		name : 'secondParentStatus'
-	}, {
-		name : 'note'
 	} ],
 	idProperty : 'id'
 });
 
-Ext.define('DCMS.wl.WaitingListGrid', {
+Ext.define('DCMS.enroll.ManageEnrollmentGrid', {
 	extend : 'Ext.grid.Panel',
-	xtype : 'wlgrid',
+	xtype : 'manageenrollmentgrid',
 	collapsible : false,
 	multiSelect : false,
 	columns : [ {
 		text : 'Name',
-		width : 125,
+		width : 150,
 		sortable : true,
 		dataIndex : 'name'
 	}, {
 		text : 'Date of Birth',
-		width : 100,
+		width : 130,
 		sortable : true,
 		dataIndex : 'dateOfBirth',
 		xtype : 'datecolumn',
 		format : 'm/d/Y'
 	}, {
-		text : 'Phone',
-		width : 120,
-		sortable : false,
-		dataIndex : 'phone'
-	}, {
 		text : 'Affiliation',
-		width : 90,
+		width : 100,
 		sortable : false,
 		dataIndex : 'affiliation'
 	}, {
 		text : 'Status',
-		width : 150,
+		width : 180,
 		sortable : false,
-		dataIndex : 'displayStatus'
-	}, {
-		text : 'Date of App.',
-		width : 100,
-		sortable : true,
-		dataIndex : 'applicationDate',
-		xtype : 'datecolumn',
-		format : 'm/d/Y'
-	}, {
-		text : 'Desired Enrollment Day',
-		width : 100,
-		sortable : true,
-		dataIndex : 'desireDate',
-		xtype : 'datecolumn',
-		format : 'm/d/Y'
-	}, {
-		text : 'Grade',
-		width : 100,
-		sortable : false,
-		dataIndex : 'expectGrade'
-	}, {
-		text : 'Attending Days',
-		width : 120,
-		sortable : false,
-		dataIndex : 'attendingMode'
-	}, {
-		text : 'Parent Name1',
-		width : 130,
-		sortable : false,
-		dataIndex : 'firstParentName'
-	}, {
-		text : 'Relationship 1',
-		width : 105,
-		sortable : false,
-		dataIndex : 'firstParentRole'
-	}, {
-		text : 'Aff. Status 1',
-		width : 100,
-		sortable : false,
-		dataIndex : 'firstParentStatus'
-	}, {
-		text : 'Parent Name2',
-		width : 130,
-		sortable : false,
-		dataIndex : 'secondParentName'
-	}, {
-		text : 'Relationship 2',
-		width : 105,
-		sortable : false,
-		dataIndex : 'secondParentRole'
-	}, {
-		text : 'Aff. Status 2',
-		width : 100,
-		sortable : false,
-		dataIndex : 'secondParentStatus'
+		dataIndex : 'status'
 	}, {
 		text : 'Notes',
-		width : 150,
-		sortable : false,
-		dataIndex : 'note'
+		flex : 1,
+		sortable : false
 	} ],
 	tbar : [
 			{
 				itemId : 'refreshButton',
 				text : 'Refresh',
 				handler : function() {
-					this.up('wlgrid').refresh();
+					this.up('manageenrollmentgrid').refresh();
 				}
 			},
 			{
@@ -163,7 +77,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				text : 'Offer a Position',
 				hidden : true,
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -210,7 +124,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				text : 'Confirm Contract',
 				hidden : true,
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -245,7 +159,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 
 				// enrollmentContractFail
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -279,7 +193,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				hidden : true,
 				// removeWaitingEntry
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -318,7 +232,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				hidden : true,
 				// enrollmentOfferAccepted
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -358,7 +272,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				// enrollmentOfferRefused
 
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -391,7 +305,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				text : 'Return to list',
 				hidden : true,
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 					if (grid.getSelectionModel().hasSelection()) {
 						var selectedItems = grid.getSelectionModel()
 								.getSelection();
@@ -424,7 +338,7 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 				text : 'Enroll',
 				hidden : true,
 				handler : function() {
-					var grid = this.up('wlgrid');
+					var grid = this.up('manageenrollmentgrid');
 
 					// setEnrollStatus
 					if (grid.getSelectionModel().hasSelection()) {
@@ -529,14 +443,27 @@ Ext.define('DCMS.wl.WaitingListGrid', {
 	},
 	refresh : function() {
 		var grid = this;
-		WaitingListService.findWaitingList({}, {
+		WaitingListService.findEnrollmentList({}, {
 			callback : function(result) {
 				if (result.success) {
 					var wl = result.waitingLists;
-					debugger;
-					DCMS.common.DataConv.convertAff(wl, 'affiliation');
-					DCMS.common.DataConv.convertAff(wl, 'firstParentStatus');
-					DCMS.common.DataConv.convertAff(wl, 'secondParentStatus');
+					for (var i = 0; i < wl.length; i++) {
+						var wlitem = wl[i];
+						switch (wlitem.affiliation) {
+						case 0:
+							wlitem.affiliation = 'None';
+							break;
+						case 1:
+							wlitem.affiliation = 'Student';
+							break;
+						case 2:
+							wlitem.affiliation = 'Faculty';
+							break;
+						default:
+							break;
+						}
+					}
+
 					grid.store.setData(wl);
 				}
 			},

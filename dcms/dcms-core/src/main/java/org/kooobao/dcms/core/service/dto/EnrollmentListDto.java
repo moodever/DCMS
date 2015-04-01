@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.kooobao.dcms.core.dto.Dto;
 
-public class WaitingListDto extends Dto{
+public class EnrollmentListDto extends Dto{
 
 	private int id;
 
@@ -20,13 +20,11 @@ public class WaitingListDto extends Dto{
 	
 	private String phone;
 	
-	private Date applicationDate;
-	
-	private Date desireDate;
-	
-	private String expectGrade;
-	
 	private String attendingMode;
+	
+	private String enrolledClass;
+	
+	private String enrolledTerm;
 	
 	private String firstParentName;
 	private String firstParentRole;
@@ -55,29 +53,6 @@ public class WaitingListDto extends Dto{
 		this.phone = phone;
 	}
 
-	public Date getApplicationDate() {
-		return applicationDate;
-	}
-
-	public void setApplicationDate(Date applicationDate) {
-		this.applicationDate = applicationDate;
-	}
-
-	public Date getDesireDate() {
-		return desireDate;
-	}
-
-	public void setDesireDate(Date desireDate) {
-		this.desireDate = desireDate;
-	}
-
-	public String getExpectGrade() {
-		return expectGrade;
-	}
-
-	public void setExpectGrade(String expectGrade) {
-		this.expectGrade = expectGrade;
-	}
 
 	public String getAttendingMode() {
 		return attendingMode;
@@ -182,6 +157,24 @@ public class WaitingListDto extends Dto{
 	public void setDisplayStatus(String displayStatus) {
 		this.displayStatus = displayStatus;
 	}
+
+	public String getEnrolledClass() {
+		return enrolledClass;
+	}
+
+	public void setEnrolledClass(String enrolledClass) {
+		this.enrolledClass = enrolledClass;
+	}
+
+	public String getEnrolledTerm() {
+		return enrolledTerm;
+	}
+
+	public void setEnrolledTerm(String enrolledTerm) {
+		this.enrolledTerm = enrolledTerm;
+	}
+	
+
 
 
 }
