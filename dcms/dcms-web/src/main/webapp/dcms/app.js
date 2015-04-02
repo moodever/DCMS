@@ -10,14 +10,15 @@ Ext.require([ 'DCMS.MainViewPort', 'DCMS.SummaryPanel', 'DCMS.MenuTree' ]);
 Ext.require([ 'DCMS.wl.WaitingListPanel', 'DCMS.wl.WaitingListGrid',
 		'DCMS.wl.NewWaitingEntryWindow', 'DCMS.wl.OfferPositionWindow' ]);
 Ext.require([ 'DCMS.enroll.ManageEnrollmentGrid',
-      		'DCMS.enroll.ManageEnrollmentPanel' ]);
+		'DCMS.enroll.ManageEnrollmentPanel' ]);
 Ext.require([ 'DCMS.enroll.EnrollmentChartGrid',
 		'DCMS.enroll.EnrollmentChartPanel' ]);
-Ext.require([ 'DCMS.enroll.ProjectionChartGrid',
-      		'DCMS.enroll.ProjectionChartPanel' ]);
-Ext.require([ 'DCMS.setting.SysSettingGrid',
-        		'DCMS.setting.SysSettingPanel' ]);
 
+Ext.require([ 'DCMS.enroll.TimesheetPanel', 'DCMS.enroll.TimesheetChildGrid' ]);
+
+Ext.require([ 'DCMS.enroll.ProjectionChartGrid',
+		'DCMS.enroll.ProjectionChartPanel' ]);
+Ext.require([ 'DCMS.setting.SysSettingGrid', 'DCMS.setting.SysSettingPanel' ]);
 
 Ext.define('Ext.overrides.selection.CheckboxModel', {
 	override : 'Ext.selection.CheckboxModel',

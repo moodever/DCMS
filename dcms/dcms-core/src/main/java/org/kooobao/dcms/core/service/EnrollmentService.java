@@ -18,6 +18,8 @@ import org.kooobao.dcms.core.service.dto.ProjectEnrolChartResultDto;
 import org.kooobao.dcms.core.service.dto.RemoveWaitingEntryResultDto;
 import org.kooobao.dcms.core.service.dto.ReturnToListResultDto;
 import org.kooobao.dcms.core.service.dto.SetEnrollStatusResultDto;
+import org.kooobao.dcms.core.service.dto.ViewTimesheetDto;
+import org.kooobao.dcms.core.service.dto.ViewTimesheetResultDto;
 
 
 
@@ -46,6 +48,7 @@ public interface EnrollmentService {
 	public SetEnrollStatusResultDto setEnrollStatus(EnrollStatusChangeDto input);
 	public ReturnToListResultDto returnToList(EnrollStatusChangeDto input);
 	
+	public ViewTimesheetResultDto viewTimesheet(ViewTimesheetDto input);
 	
 		 
 

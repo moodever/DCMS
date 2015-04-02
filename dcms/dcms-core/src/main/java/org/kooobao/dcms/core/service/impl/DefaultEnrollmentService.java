@@ -40,6 +40,10 @@ import org.kooobao.dcms.core.service.dto.ProjectEnrolChartResultDto;
 import org.kooobao.dcms.core.service.dto.RemoveWaitingEntryResultDto;
 import org.kooobao.dcms.core.service.dto.ReturnToListResultDto;
 import org.kooobao.dcms.core.service.dto.SetEnrollStatusResultDto;
+import org.kooobao.dcms.core.service.dto.TimesheetEntryDto;
+import org.kooobao.dcms.core.service.dto.TimesheetSummaryDto;
+import org.kooobao.dcms.core.service.dto.ViewTimesheetDto;
+import org.kooobao.dcms.core.service.dto.ViewTimesheetResultDto;
 
 public class DefaultEnrollmentService implements EnrollmentService {
 
@@ -116,24 +120,23 @@ public class DefaultEnrollmentService implements EnrollmentService {
 					currentDate);
 
 			KidsChartNodeDto dto = new KidsChartNodeDto();
-			
-			//x.getDateBirth().after()
-			
-			
-			if (kidsWeekAge < 52) {    // infant 
+
+			// x.getDateBirth().after()
+
+			if (kidsWeekAge < 52) { // infant
 				classArray.get(0).add(dto);
 
-			} else if (kidsWeekAge < 104) {  //toddler1
-				classArray.get(1).add(dto);   
-			} else if (kidsWeekAge < 156) {  //toddler2
+			} else if (kidsWeekAge < 104) { // toddler1
+				classArray.get(1).add(dto);
+			} else if (kidsWeekAge < 156) { // toddler2
 				classArray.get(2).add(dto);
-			} else if (kidsWeekAge < 208) {  //preschool3
+			} else if (kidsWeekAge < 208) { // preschool3
 				classArray.get(3).add(dto);
-			} else if (kidsWeekAge < 260) {  //preschool4
-				classArray.get(4).add(dto);   
-			} else if (kidsWeekAge < 522) {  //School age class
-				classArray.get(7).add(dto);   
-			} 
+			} else if (kidsWeekAge < 260) { // preschool4
+				classArray.get(4).add(dto);
+			} else if (kidsWeekAge < 522) { // School age class
+				classArray.get(7).add(dto);
+			}
 
 			// ....
 			TimeSheet tSheet = x.getActiveEnrollment().getTimeSheet();
@@ -563,8 +566,8 @@ public class DefaultEnrollmentService implements EnrollmentService {
 				enrollment.setAttendingMode(AttendingMode.values()[input
 						.getAttendingMode()]);
 				waitingList.setAttendingMode(AttendingMode.values()[input
-				                            						.getAttendingMode()]);
-				
+						.getAttendingMode()]);
+
 				enrollment.setAcceptDate(input.getAcceptDate());
 
 				enrollment.setClassroom(classroom);
@@ -599,7 +602,7 @@ public class DefaultEnrollmentService implements EnrollmentService {
 						.getAttendingMode()]);
 				waitingList.setAttendingMode(AttendingMode.values()[input
 						.getAttendingMode()]);
-				
+
 				enrollment.setAcceptDate(input.getAcceptDate());
 
 				enrollment.setClassroom(classroom);
@@ -634,7 +637,63 @@ public class DefaultEnrollmentService implements EnrollmentService {
 			}
 		}
 
-	};
+	}
+
+	@Override
+	public ViewTimesheetResultDto viewTimesheet(ViewTimesheetDto input) {
+		ViewTimesheetResultDto result = new ViewTimesheetResultDto();
+
+		String term = Classroom.calculateTerm(new Date());
+		String clsrmName = input.getClassroomName();
+
+		Classroom clsrm = getClassroomDao().findByNameTerm(clsrmName, term);
+		if (clsrm == null) {
+			result.setSuccess(false);
+			result.setErrorMessage("No such classroom");
+			return result;
+		}
+		List<Enrollment> enrollments = getEnrollmentDao()
+				.findActiveInClassroom(clsrm);
+		TimesheetEntryDto[] entryDtos = new TimesheetEntryDto[enrollments
+				.size()];
+		int counter = 0;
+
+		for (Enrollment el : enrollments) {
+			TimeSheet ts = el.getTimeSheet();
+
+			entryDtos[counter] = new TimesheetEntryDto();
+			entryDtos[counter].setChildName(el.getChild().getName());
+			entryDtos[counter].setDateBirth(el.getChild().getDateBirth());
+			entryDtos[counter].setDateType(el.getAttendingMode().name());
+			entryDtos[counter].setMwf(ts.getMwf());
+			entryDtos[counter].setTt(ts.getTt());
+			counter++;
+		}
+
+		TimesheetSummaryDto summary = new TimesheetSummaryDto();
+
+		int mwf[] = new int[20];
+		int tt[] = new int[20];
+		summary.setMwf(mwf);
+		summary.setTt(tt);
+		for (int i = 0; i < mwf.length; i++) {
+			mwf[i] = 0;
+			tt[i] = 0;
+		}
+		for (TimesheetEntryDto entry : entryDtos) {
+			for (int i = 0; i < entry.getMwf().length; i++) {
+				mwf[i] += entry.getMwf()[i] ? 1 : 0;
+			}
+			for (int i = 0; i < entry.getTt().length; i++) {
+				tt[i] += entry.getTt()[i] ? 1 : 0;
+			}
+		}
+
+		result.setEntries(entryDtos);
+		result.setSummary(summary);
+
+		return result;
+	}
 
 	private ChildDao childDao;
 

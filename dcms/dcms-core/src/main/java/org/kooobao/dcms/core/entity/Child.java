@@ -1,5 +1,6 @@
 package org.kooobao.dcms.core.entity;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.kooobao.common.dao.Entity;
+
+import com.mysql.jdbc.StringUtils;
 
 @javax.persistence.Entity
 @Table(name = "dcms_child")
@@ -98,12 +101,12 @@ public class Child extends Entity {
 	}
 
 	public void removeEnrollment(Enrollment e) {
-		
-		if (getActiveEnrollment()!=null && getActiveEnrollment().equals(e)) {
+
+		if (getActiveEnrollment() != null && getActiveEnrollment().equals(e)) {
 			setActiveEnrollment(null);
 		}
 		e.getClassroom().removeEnrollment(e);
-		
+
 		getEnrollments().remove(e);
 	}
 
@@ -161,6 +164,16 @@ public class Child extends Entity {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getName() {
+		if (StringUtils.isEmptyOrWhitespaceOnly(getMiddleName())) {
+			return MessageFormat.format("{0} {1}", getFirstName(),
+					getLastName());
+		} else {
+			return MessageFormat.format("{0} {1} {2}", getFirstName(),
+					getMiddleName(), getLastName());
+		}
 	}
 
 }

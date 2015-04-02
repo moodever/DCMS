@@ -51,6 +51,13 @@ DCMS.menuTree.initStore = function() {
 	};
 	menuEnrollment.children.push(menuViewProjectionChart);
 
+	var menuTimesheet = {
+		text : "Timesheet",
+		id : 204,
+		leaf : true
+	};
+	menuEnrollment.children.push(menuTimesheet);
+
 	var menuSystemSetting = {
 		text : "System Setting",
 		id : 300,
@@ -92,6 +99,9 @@ DCMS.menuTree.displayNode = function(id) {
 			break;
 		case 203:
 			existed = Ext.create('DCMS.enroll.ProjectionChartPanel');
+			break;
+		case 204:
+			existed = Ext.create('DCMS.enroll.TimesheetPanel');
 			break;
 		case 301:
 			existed = Ext.create('DCMS.setting.SysSettingPanel');

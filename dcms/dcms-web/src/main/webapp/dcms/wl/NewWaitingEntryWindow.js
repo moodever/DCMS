@@ -23,18 +23,17 @@ Ext.define('DCMS.wl.NewWaitingEntryWindow', {
 					fieldLabel : 'Notes for Application:',
 					itemId : 'note',
 					xtype : 'textareafield',
-					anchor : '65%'
+					anchor : '100%'
 				}, {
 					fieldLabel : 'Notes for Child:',
 					itemId : 'childNote',
 					xtype : 'textareafield',
-					anchor : '65%'
+					anchor : '100%'
 				} ]
 			}, {
 				layout : 'column',
 				region : 'north',
 				items : [ {
-
 					columnWidth : .33,
 					bodyPadding : 10,
 					border : false,

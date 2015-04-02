@@ -1,6 +1,56 @@
 /**
  * 
  */
+Ext.namespace('DCMS.wl');
+
+/**
+ * This is a function to validate timesheet format
+ */
+DCMS.wl.validateTimesheet = function(value) {
+	var regex = /^((\d{1,2}(:(00|30))?)(\s*-\s*(\d{1,2}(:(00|30))?))?)(\s*,\s*(\d{1,2}(:(00|30))?)(-(\d{1,2}(:(00|30))?))?)*$/;
+	if (!regex.test(value)) {
+		return false;
+	}
+	var parts = value.split(',');
+	var verifyNum = function(value) {
+		var first = value;
+		var second = 0;
+		if (value.indexOf(':') != -1) {
+			var sp = value.split(':');
+			first = sp[0];
+			second = sp[1] == '00' ? 0 : 0.5;
+		}
+		var res = parseInt(first);
+		if (isNaN(res) || res < 0 || res > 23) {
+			return -1;
+		}
+		return res + second;
+
+	};
+	for (var i = 0; i < parts.length; i++) {
+		var part = parts[i].trim();
+		if (part.indexOf('-') == -1) {
+			var num = verifyNum(part);
+			if (num == -1 || num < 8 || num > 17) {
+				return false;
+			}
+		} else {
+			var split = part.split('-');
+			var first = verifyNum(split[0].trim());
+			var second = verifyNum(split[1].trim());
+			if (first == -1 || second == -1)
+				return false;
+			if (first > second)
+				return false;
+			if (first < 7.5)
+				return false;
+			if (second > 17)
+				return false;
+		}
+	}
+	return true;
+};
+
 Ext.define('DCMS.wl.OfferPositionWindow', {
 	extend : 'Ext.window.Window',
 	xtype : 'offerposwindow',
@@ -11,135 +61,145 @@ Ext.define('DCMS.wl.OfferPositionWindow', {
 	maximizable : true,
 	modal : true,
 	layout : 'border',
-	items : [ {
-		region : 'north',
-		layout : 'column',
-		border : false,
-		items : [ {
-			columnWidth : 0.5,
-			bodyPadding : 10,
-			border : false,
-			layout : 'anchor',
-			defaultType : 'textfield',
-			items : [ {
-				fieldLabel : 'Class',
-				itemId : 'class',
-				xtype : 'combo',
-				store : DCMS.wl.classStore,
-				queryMode : 'local',
-				displayField : 'name',
-				valueField : 'value',
-				editable : false,
-				anchor : '95%'
-			}, {
-				fieldLabel : 'Start Date',
-				itemId : 'startDate',
-				xtype : 'datefield',
-				editable : false,
-				anchor : '95%'
-			}, {
-				fieldLabel : 'Accept Date',
-				itemId : 'acceptDate',
-				xtype : 'datefield',
-				editable : false,
-				anchor : '95%'
-			}
+	items : [
+			{
+				region : 'north',
+				layout : 'column',
+				border : false,
+				items : [ {
+					columnWidth : 0.5,
+					bodyPadding : 10,
+					border : false,
+					layout : 'anchor',
+					defaultType : 'textfield',
+					items : [ {
+						fieldLabel : 'Class',
+						itemId : 'class',
+						xtype : 'combo',
+						store : DCMS.wl.classStore,
+						queryMode : 'local',
+						displayField : 'name',
+						valueField : 'value',
+						editable : false,
+						anchor : '95%'
+					}, {
+						fieldLabel : 'Start Date',
+						itemId : 'startDate',
+						xtype : 'datefield',
+						editable : false,
+						anchor : '95%'
+					}, {
+						fieldLabel : 'Accept Date',
+						itemId : 'acceptDate',
+						xtype : 'datefield',
+						editable : false,
+						anchor : '95%'
+					}
 
-			]
-		}, {
-			columnWidth : 0.5,
-			bodyPadding : 10,
-			border : false,
-			layout : 'anchor',
-			defaultType : 'textfield',
-			items : [ {
-				fieldLabel : 'Term',
-				itemId : 'term',
-				xtype : 'combo',
-				store : DCMS.wl.termStore,
-				queryMode : 'local',
-				displayField : 'name',
-				valueField : 'value',
-				editable : false,
-				anchor : '95%'
-			}, {
-				fieldLabel : 'Attending Day',
-				itemId : 'attendingDay',
-				xtype : 'combo',
-				store : DCMS.wl.attendingModeStore,
-				queryMode : 'local',
-				displayField : 'name',
-				valueField : 'value',
-				editable : false,
-				anchor : '95%'
-			} ]
-		} ]
-	}, {
-		region : 'center',
-		layout : {
-			type : 'table',
-			columns : 2,
-			tableAttrs : {
-				style : {
-					width : '100%',
-					paddingTop : '10px'
-				}
+					]
+				}, {
+					columnWidth : 0.5,
+					bodyPadding : 10,
+					border : false,
+					layout : 'anchor',
+					defaultType : 'textfield',
+					items : [ {
+						fieldLabel : 'Term',
+						itemId : 'term',
+						xtype : 'combo',
+						store : DCMS.wl.termStore,
+						queryMode : 'local',
+						displayField : 'name',
+						valueField : 'value',
+						editable : false,
+						anchor : '95%'
+					}, {
+						fieldLabel : 'Attending Day',
+						itemId : 'attendingDay',
+						xtype : 'combo',
+						store : DCMS.wl.attendingModeStore,
+						queryMode : 'local',
+						displayField : 'name',
+						valueField : 'value',
+						editable : false,
+						anchor : '95%'
+					} ]
+				} ]
 			},
-			tdAttrs : {
-				style : {
-					paddingLeft : '10px',
-					paddingRight : '10px'
-				}
-			}
-		},
-		border : false,
-		defaultType : 'textfield',
-		flex : 1,
-		items : [ {
-			xtype : 'panel',
-			html : "",
-			style : {
-				paddingBottom : '10px'
-			},
-			width : '80px'
-		}, {
-			xtype : 'panel',
-			html : " Time",
-			style : {
-				paddingBottom : '10px'
-			}
-		}, {
-			xtype : 'panel',
-			html : 'Monday'
-		}, {
-			itemId : 'mondayTime',
-			width : '95%'
-		}, {
-			xtype : 'panel',
-			html : 'Tuesday'
-		}, {
-			itemId : 'tuesdayTime',
-			width : '95%'
-		}, {
-			xtype : 'panel',
-			html : 'Wednesday'
-		}, {
-			itemId : 'wednesdayTime',
-			width : '95%'
-		}, {
-			xtype : 'panel',
-			html : 'Thursday'
-		}, {
-			itemId : 'thursdayTime',
-			width : '95%'
-		}, {
-			xtype : 'panel',
-			html : 'Friday'
-		}, {
-			itemId : 'fridayTime',
-			width : '95%'
-		} ]
-	} ],
+			{
+				region : 'center',
+				layout : {
+					type : 'table',
+					columns : 2,
+					tableAttrs : {
+						style : {
+							width : '100%',
+							paddingTop : '10px'
+						}
+					},
+					tdAttrs : {
+						style : {
+							paddingLeft : '10px',
+							paddingRight : '10px'
+						}
+					}
+				},
+				border : false,
+				defaultType : 'textfield',
+				flex : 1,
+				items : [
+						{
+							xtype : 'panel',
+							html : "",
+							style : {
+								paddingBottom : '10px'
+							},
+							width : '80px'
+						},
+						{
+							xtype : 'panel',
+							html : " Time (in 24 hr format,"
+									+ " e.g: 14:00, 9:00-17:30 or 13-15, "
+									+ "comma as separator)",
+							style : {
+								paddingBottom : '10px'
+							}
+						}, {
+							xtype : 'panel',
+							html : 'Monday'
+						}, {
+							itemId : 'mondayTime',
+							width : '95%',
+							validator : DCMS.wl.validateTimesheet
+						}, {
+							xtype : 'panel',
+							html : 'Tuesday'
+						}, {
+							itemId : 'tuesdayTime',
+							width : '95%',
+							validator : DCMS.wl.validateTimesheet
+						}, {
+							xtype : 'panel',
+							html : 'Wednesday'
+						}, {
+							itemId : 'wednesdayTime',
+							width : '95%'
+						}, {
+							xtype : 'panel',
+							html : 'Thursday'
+						}, {
+							itemId : 'thursdayTime',
+							width : '95%',
+							validator : DCMS.wl.validateTimesheet
+						}, {
+							xtype : 'panel',
+							html : 'Friday'
+						}, {
+							itemId : 'fridayTime',
+							width : '95%',
+							validator : DCMS.wl.validateTimesheet
+						} ]
+			} ],
 	initComponent : function() {
 		var dc = Ext.create('DCMS.common.DataCollector');
 

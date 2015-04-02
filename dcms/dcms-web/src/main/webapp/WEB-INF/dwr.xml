@@ -27,6 +27,7 @@
 			<include method="setEnrollStatus" />
 			<include method="generateEnrolChart" />
 			<include method="projectEnrolChart" />
+			<include method="viewTimesheet" />
 		</create>
 		
 		<create creator="spring" javascript="SettingService">
