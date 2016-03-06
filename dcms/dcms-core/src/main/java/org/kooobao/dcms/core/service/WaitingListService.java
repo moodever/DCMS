@@ -8,6 +8,8 @@ import org.kooobao.dcms.core.service.dto.NotifyWaitingListDto;
 import org.kooobao.dcms.core.service.dto.NotifyWaitingListResultDto;
 import org.kooobao.dcms.core.service.dto.SaveWaitingEntryDto;
 import org.kooobao.dcms.core.service.dto.SaveWaitingEntryResultDto;
+import org.kooobao.dcms.core.service.dto.FindEnrollmentListDto;
+import org.kooobao.dcms.core.service.dto.FindEnrollmentListResultDto;
 
 public interface WaitingListService {
 
@@ -20,4 +22,6 @@ public interface WaitingListService {
 			DeleteWaitingEntryDto input);
 
 	public FindWaitingListResultDto findWaitingList(FindWaitingListDto input);
+	
+	public FindEnrollmentListResultDto findEnrollmentList(FindEnrollmentListDto input) ;
 }

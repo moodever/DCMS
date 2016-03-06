@@ -22,6 +22,7 @@
 	<bean id="waitingListDao" class="org.kooobao.dcms.core.dao.jpa.JpaWaitingListDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+	
 
 	<!-- Service definition -->
 	<bean id="waitingListService"
@@ -37,4 +38,14 @@
 		<property name="enrollmentDao" ref="enrollmentDao" />
 		<property name="classroomDao" ref="classroomDao" />
 	</bean>
+	
+	<bean id="settingService"
+		class="org.kooobao.dcms.core.service.impl.DefaultSettingService">
+		<property name="childDao" ref="childDao" />
+		<property name="waitingListDao" ref="waitingListDao" />
+		<property name="enrollmentDao" ref="enrollmentDao" />
+		<property name="classroomDao" ref="classroomDao" />
+	</bean>
+	
+	
 </beans>

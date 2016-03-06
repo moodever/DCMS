@@ -9,6 +9,41 @@ public class SaveWaitingEntryDto extends Dto {
 	private int waitingListID = -1;
 	private int childID = -1;
 
+	private Date desireDate;
+	private Date applicationDate;
+	private Date offeredDate;
+	private int status;
+	private int displayStatus;
+	private String expectGrade;
+	private String note;
+	private int customizedSequence;
+	private int attendingMode;
+
+
+	private String childFirstName;
+	private String childMiddleName;
+	private String childLastName;
+	private Date childDateBirth;
+	private int sliblingId;
+	private int affiliation;
+	private String phone;
+	
+
+	private String childNote;
+
+	private ContactDto[] contacts;
+
+	
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	
 	public int getChildID() {
 		return childID;
 	}
@@ -24,26 +59,7 @@ public class SaveWaitingEntryDto extends Dto {
 	public void setWaitingListID(int waitingListID) {
 		this.waitingListID = waitingListID;
 	}
-
-	private Date desireDate;
-	private Date applicationDate;
-	private Date offeredDate;
-	private int status;
-	private int expectGrade;
-	private String note;
-	private int customizedSequence;
-	private int attendingMode;
-
-	private String childFirstName;
-	private String childMiddleName;
-	private String childLastName;
-	private Date childDateBirth;
-	private int sliblingId;
-	private int affiliation;
-	private String childNote;
-
-	private ContactDto[] contacts;
-
+	
 	public Date getDesireDate() {
 		return desireDate;
 	}
@@ -76,11 +92,11 @@ public class SaveWaitingEntryDto extends Dto {
 		this.status = status;
 	}
 
-	public int getExpectGrade() {
-		return expectGrade;
+	public String getExpectGrade() {
+		return this.expectGrade;
 	}
 
-	public void setExpectGrade(int expectGrade) {
+	public void setExpectGrade(String expectGrade) {
 		this.expectGrade = expectGrade;
 	}
 
@@ -179,5 +195,15 @@ public class SaveWaitingEntryDto extends Dto {
 	public void setContacts(ContactDto[] contacts) {
 		this.contacts = contacts;
 	}
+
+	public int getDisplayStatus() {
+		return displayStatus;
+	}
+
+	public void setDisplayStatus(int displayStatus) {
+		this.displayStatus = displayStatus;
+	}
+	
+
 
 }

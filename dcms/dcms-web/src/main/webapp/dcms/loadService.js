@@ -36,5 +36,4 @@ Utils.loadhtml = function(htmlurl) {
 Utils.loadjs('/dcms-web/dwr/engine.js');
 Utils.loadjs('/dcms-web/dwr/interface/WaitingListService.js');
 Utils.loadjs('/dcms-web/dwr/interface/EnrollmentService.js');
-// Utils.loadjs('dwr/interface/nodeService.js');
-// Utils.loadjs('dwr/interface/vmService.js');
+Utils.loadjs('/dcms-web/dwr/interface/SettingService.js');

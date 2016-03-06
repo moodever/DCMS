@@ -83,7 +83,7 @@ div {
 	margin-top: 10px;
 }
 
-.intro a,a:visited {
+.intro a, a:visited {
 	font-size: 16px;
 	font-weight: bold;
 	display: block;
@@ -101,4 +101,14 @@ div {
 	font-size: 15px;
 	margin-bottom: 8px;
 	margin-top: 8px;
+}
+
+tr.empty-row td {
+	background-color: #f6fe18;
+	color: #900;
+}
+
+tr.nonempty-row td {
+	background-color: #ffffff;
+	color: #000;
 }

@@ -1,26 +1,19 @@
 package org.kooobao.dcms.core.service.dto;
 
+import java.util.Date;
+
 import org.kooobao.dcms.core.dto.Dto;
 
 public class ProjectEnrolChartDto extends Dto {
 
-	private int classroomId;
-	private DateDto term;
+	private Date targetDate;
 
-	public int getClassroomId() {
-		return classroomId;
+	public Date getTargetDate() {
+		return targetDate;
 	}
 
-	public void setClassroomId(int classroomId) {
-		this.classroomId = classroomId;
-	}
-
-	public DateDto getTerm() {
-		return term;
-	}
-
-	public void setTerm(DateDto term) {
-		this.term = term;
+	public void setTargetDate(Date targetDate) {
+		this.targetDate = targetDate;
 	}
 
 }

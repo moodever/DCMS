@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import org.kooobao.common.dao.JpaDao;
 import org.kooobao.dcms.core.dao.EnrollmentDao;
 import org.kooobao.dcms.core.entity.Child;
+import org.kooobao.dcms.core.entity.Classroom;
 import org.kooobao.dcms.core.entity.Enrollment;
 import org.kooobao.dcms.core.entity.Enrollment.Status;
 
@@ -30,6 +31,15 @@ public class JpaEnrollmentDao extends JpaDao<Enrollment> implements
 		String sql = "select e from Enrollment e where e.status = :status";
 		return getEntityManager().createQuery(sql, Enrollment.class)
 				.setParameter("status", effective).getResultList();
+	}
+
+	@Override
+	public List<Enrollment> findActiveInClassroom(Classroom clsrm) {
+		String sql = "select e from Enrollment e where e.classroom = :clsrm and e.status = :status";
+		return getEntityManager().createQuery(sql, Enrollment.class)
+				.setParameter("clsrm", clsrm)
+				.setParameter("status", Enrollment.Status.EFFECTIVE)
+				.getResultList();
 	}
 
 }

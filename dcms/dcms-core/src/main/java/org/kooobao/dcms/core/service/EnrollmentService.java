@@ -15,6 +15,11 @@ import org.kooobao.dcms.core.service.dto.PrepareEnrollmentDto;
 import org.kooobao.dcms.core.service.dto.PrepareEnrollmentResultDto;
 import org.kooobao.dcms.core.service.dto.ProjectEnrolChartDto;
 import org.kooobao.dcms.core.service.dto.ProjectEnrolChartResultDto;
+import org.kooobao.dcms.core.service.dto.RemoveWaitingEntryResultDto;
+import org.kooobao.dcms.core.service.dto.ReturnToListResultDto;
+import org.kooobao.dcms.core.service.dto.SetEnrollStatusResultDto;
+import org.kooobao.dcms.core.service.dto.ViewTimesheetDto;
+import org.kooobao.dcms.core.service.dto.ViewTimesheetResultDto;
 
 
 
@@ -24,7 +29,7 @@ public interface EnrollmentService {
 	
 	public ChangeClassResultDto changeClass(ChangeClassDto input);
 	
-	public ProjectEnrolChartResultDto ProjectEnrolChart(ProjectEnrolChartDto input);
+	public ProjectEnrolChartResultDto projectEnrolChart(ProjectEnrolChartDto input);
 	public GenerateEnrolChartResultDto generateEnrolChart(GenerateEnrolChartDto input);
 	
 	public ContractEndResultDto contractEnded(ContractEndDto input);
@@ -39,6 +44,11 @@ public interface EnrollmentService {
 	
 	public EnrollContractedResultDto enrollmentContracted(
 			EnrollStatusChangeDto input);
+	public RemoveWaitingEntryResultDto removeWaitingEntry(EnrollStatusChangeDto input);
+	public SetEnrollStatusResultDto setEnrollStatus(EnrollStatusChangeDto input);
+	public ReturnToListResultDto returnToList(EnrollStatusChangeDto input);
+	
+	public ViewTimesheetResultDto viewTimesheet(ViewTimesheetDto input);
 	
 		 
 

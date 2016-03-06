@@ -4,14 +4,29 @@ import org.kooobao.dcms.core.dto.ResultDto;
 
 public class ProjectEnrolChartResultDto extends ResultDto {
 
-	private KidsChartNodeDto[][] nodes;
+	private ClassNodeDto[] nodes;
 
-	public KidsChartNodeDto[][] getNodes() {
+	public ClassNodeDto[] getNodes() {
 		return nodes;
 	}
 
-	public void setNodes(KidsChartNodeDto[][] nodes) {
+	public void setNodes(ClassNodeDto[] nodes) {
 		this.nodes = nodes;
 	}
+	
 
+	
+/*	private KidsChartNodeDto[][] nodes;
+*
+*	public KidsChartNodeDto[][] getNodes() {
+*		return nodes;
+*	}
+*
+*	public void setNodes(KidsChartNodeDto[][] nodes) {
+*		this.nodes = nodes;
+*	}
+*/
+	
 }
+
+

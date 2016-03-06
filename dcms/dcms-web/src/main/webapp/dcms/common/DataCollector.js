@@ -25,7 +25,7 @@ Ext.define('DCMS.common.DataCollector', {
 			if (item != null) {
 				datatarget[splitkey[splitkey.length - 1]] = item.value;
 			} else {
-				alert(mapping.itemId + " cannot find");
+				alert("From DataCollector:" + mapping.itemId + " cannot find");
 			}
 		}
 		return object;

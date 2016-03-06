@@ -31,12 +31,47 @@ DCMS.menuTree.initStore = function() {
 	menuRoot.children.push(menuEnrollment);
 
 	var menuViewEnrollment = {
-		text : "Enrollment management",
+		text : "Manage Enrollment",
 		id : 201,
-		leaf : true,
-		children : new Array()
+		leaf : true
 	};
 	menuEnrollment.children.push(menuViewEnrollment);
+
+	var menuViewEnrollChart = {
+		text : "Enrollment Chart",
+		id : 202,
+		leaf : true
+	};
+	menuEnrollment.children.push(menuViewEnrollChart);
+
+	var menuViewProjectionChart = {
+		text : "Projection Chart",
+		id : 203,
+		leaf : true
+	};
+	menuEnrollment.children.push(menuViewProjectionChart);
+
+	var menuTimesheet = {
+		text : "Timesheet",
+		id : 204,
+		leaf : true
+	};
+	menuEnrollment.children.push(menuTimesheet);
+
+	var menuSystemSetting = {
+		text : "System Setting",
+		id : 300,
+		leaf : false,
+		children : new Array()
+	};
+	menuRoot.children.push(menuSystemSetting);
+
+	var menuViewSysSetting = {
+		text : "Manage Setting",
+		id : 301,
+		leaf : true
+	};
+	menuSystemSetting.children.push(menuViewSysSetting);
 
 	DCMS.menuTree.menuStore.setRootNode(menuRoot);
 };
@@ -44,7 +79,6 @@ DCMS.menuTree.initStore = function() {
 DCMS.menuTree.initStore();
 
 DCMS.menuTree.displayNode = function(id) {
-	debugger;
 	var newid = "tab" + id;
 	var mainTabPanel = Ext.getCmp('maintab');
 	var existed = Ext.getCmp(newid);
@@ -57,6 +91,22 @@ DCMS.menuTree.displayNode = function(id) {
 		case 101: // Manage Waiting List
 			existed = Ext.create('DCMS.wl.WaitingListPanel');
 			break;
+		case 201:
+			existed = Ext.create('DCMS.enroll.ManageEnrollmentPanel');
+			break;
+		case 202:
+			existed = Ext.create('DCMS.enroll.EnrollmentChartPanel');
+			break;
+		case 203:
+			existed = Ext.create('DCMS.enroll.ProjectionChartPanel');
+			break;
+		case 204:
+			existed = Ext.create('DCMS.enroll.TimesheetPanel');
+			break;
+		case 301:
+			existed = Ext.create('DCMS.setting.SysSettingPanel');
+			break;
+
 		default:
 			alert('Unrecognized function id:' + id);
 			break;
@@ -86,7 +136,6 @@ Ext.define("DCMS.MenuTree", {
 	width : 200,
 	listeners : {
 		select : function(tree, record, row, opt) {
-			debugger;
 			if (record.raw.leaf) {
 				DCMS.menuTree.displayNode(record.raw.id);
 			}

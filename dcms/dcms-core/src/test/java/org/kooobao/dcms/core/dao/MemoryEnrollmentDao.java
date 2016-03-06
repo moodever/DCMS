@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kooobao.dcms.core.entity.Child;
+import org.kooobao.dcms.core.entity.Classroom;
 import org.kooobao.dcms.core.entity.Enrollment;
 import org.kooobao.dcms.core.entity.Enrollment.Status;
 
@@ -28,6 +29,11 @@ public class MemoryEnrollmentDao extends MemoryDao<Enrollment> implements
 				result.add(e);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Enrollment> findActiveInClassroom(Classroom clsrm) {
+		return null;
 	}
 
 }

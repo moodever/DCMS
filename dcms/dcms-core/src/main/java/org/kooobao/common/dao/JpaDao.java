@@ -8,7 +8,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.queries.ScrollableCursor;
+import org.eclipse.persistence.sessions.UnitOfWork;
 
 public abstract class JpaDao<T extends Entity> implements Dao<T> {
 
@@ -61,6 +63,10 @@ public abstract class JpaDao<T extends Entity> implements Dao<T> {
 	public T save(T object) {
 		if (-1 == object.getId()) {
 			// Pre-acquire object id
+			// TopLink trick
+			JpaEntityManager jpaEntityManager = (JpaEntityManager) entityManager.getDelegate();
+			UnitOfWork unitOfWork = (UnitOfWork) jpaEntityManager.getActiveSession();
+			unitOfWork.assignSequenceNumber(object);
 			getEntityManager().persist(object);
 		} else {
 			object = getEntityManager().merge(object);

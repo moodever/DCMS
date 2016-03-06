@@ -4,23 +4,14 @@ import org.kooobao.dcms.core.dto.Dto;
 
 public class GenerateEnrolChartDto extends Dto {
 
-	private int ClassroomId;
-	private DateDto termStartDate;
+	private String classroomName;
 
-	public DateDto getTermStartDate() {
-		return termStartDate;
+	public String getClassroomName() {
+		return classroomName;
 	}
 
-	public void setTermStartDate(DateDto termStartDate) {
-		this.termStartDate = termStartDate;
-	}
-
-	public int getClassroomId() {
-		return ClassroomId;
-	}
-
-	public void setClassroomId(int classroomId) {
-		ClassroomId = classroomId;
+	public void setClassroomName(String classroomName) {
+		this.classroomName = classroomName;
 	}
 
 }
