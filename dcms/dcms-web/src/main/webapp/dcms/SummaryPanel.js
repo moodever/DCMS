@@ -18,7 +18,7 @@ Ext.define('DCMS.SummaryPanel', {
 		width : '100%',
 		height : 45,
 		bodyCls : 'banner',
-		html : 'Child Care Manage System',
+		html : 'SPCCC Management Tool 1.0',
 		colspan : 2
 	}, {
 		xtype : 'panel',
@@ -30,8 +30,8 @@ Ext.define('DCMS.SummaryPanel', {
 			xtype : 'image',
 			style : 'float:left;',
 			src : 'image/data_center.jpg',
-			width : 100,
-			height : 100,
+			width : 500,
+			height : 350,
 			margin : 10
 		}, {
 			xtype : 'container',

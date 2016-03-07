@@ -1,9 +1,13 @@
 package org.kooobao.dcms.core.entity;
 
+import java.text.MessageFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import org.kooobao.common.dao.Entity;
+
+import com.mysql.jdbc.StringUtils;
 
 @Embeddable
 public class Contact extends Entity {
@@ -118,4 +122,14 @@ public class Contact extends Entity {
 		this.note = note;
 	}
 
+	public String getName() {
+		if (StringUtils.isEmptyOrWhitespaceOnly(getMiddleName())) {
+			return MessageFormat.format("{0} {1}", getFirstName(),
+					getLastName());
+		} else {
+			return MessageFormat.format("{0} {1}. {2}", getFirstName(),
+					Character.toUpperCase(getMiddleName().charAt(0)),
+					getLastName());
+		}
+	}
 }

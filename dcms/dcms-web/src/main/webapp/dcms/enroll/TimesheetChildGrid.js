@@ -18,7 +18,7 @@ Ext.define('DCMS.enroll.TimesheetChildGrid', {
 	anchor : '100%',
 	columns : [ {
 		text : 'Child Name',
-		width : 100,
+		width : 120,
 		sortable : true,
 		dataIndex : 'childName'
 	}, {
@@ -30,7 +30,7 @@ Ext.define('DCMS.enroll.TimesheetChildGrid', {
 		format : 'm/d/Y'
 	}, {
 		text : 'Days',
-		width : 120,
+		width : 80,
 		sortable : false,
 		dataIndex : 'dateType'
 	} ],

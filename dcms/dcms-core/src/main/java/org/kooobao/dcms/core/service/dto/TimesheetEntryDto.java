@@ -6,8 +6,11 @@ public class TimesheetEntryDto {
 	String childName;
 	Date dateBirth;
 	String dateType;
-	Boolean mwf[];
-	Boolean tt[];
+	Boolean monday[];
+	Boolean tuesday[];
+	Boolean wednesday[];
+	Boolean thursday[];
+	Boolean friday[];
 
 	public String getChildName() {
 		return childName;
@@ -33,20 +36,44 @@ public class TimesheetEntryDto {
 		this.dateType = dateType;
 	}
 
-	public Boolean[] getMwf() {
-		return mwf;
+	public Boolean[] getMonday() {
+		return monday;
 	}
 
-	public void setMwf(Boolean[] mwf) {
-		this.mwf = mwf;
+	public void setMonday(Boolean[] monday) {
+		this.monday = monday;
 	}
 
-	public Boolean[] getTt() {
-		return tt;
+	public Boolean[] getTuesday() {
+		return tuesday;
 	}
 
-	public void setTt(Boolean[] tt) {
-		this.tt = tt;
+	public void setTuesday(Boolean[] tuesday) {
+		this.tuesday = tuesday;
+	}
+
+	public Boolean[] getWednesday() {
+		return wednesday;
+	}
+
+	public void setWednesday(Boolean[] wednesday) {
+		this.wednesday = wednesday;
+	}
+
+	public Boolean[] getThursday() {
+		return thursday;
+	}
+
+	public void setThursday(Boolean[] thursday) {
+		this.thursday = thursday;
+	}
+
+	public Boolean[] getFriday() {
+		return friday;
+	}
+
+	public void setFriday(Boolean[] friday) {
+		this.friday = friday;
 	}
 
 }

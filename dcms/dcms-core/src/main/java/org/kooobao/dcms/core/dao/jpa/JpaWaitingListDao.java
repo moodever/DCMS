@@ -16,15 +16,13 @@ public class JpaWaitingListDao extends JpaDao<WaitingList> implements
 	@Override
 	public List<WaitingList> findValid() {
 		String sql = "select wl from WaitingList wl where wl.status in"
-				+ " (:active, :offer, :confirm, :accepted, :declined, :enrolled, :removed)";
+				+ " (:active, :offer, :confirm, :accepted, :declined)";
 		return getEntityManager().createQuery(sql, WaitingList.class)
 				.setParameter("active", Status.NEW)
 				.setParameter("offer", Status.OFFERED)
 				.setParameter("confirm", Status.CONTRACT_CONFIRMED) 
 				.setParameter("accepted",Status.ACCEPTED)
 				.setParameter("declined", Status.DECLINED)
-				.setParameter("enrolled", Status.ENROLLED)
-				.setParameter("removed",Status.REMOVED )
 				.getResultList();
 		
 	}

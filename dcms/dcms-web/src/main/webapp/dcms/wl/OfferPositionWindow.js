@@ -7,6 +7,9 @@ Ext.namespace('DCMS.wl');
  * This is a function to validate timesheet format
  */
 DCMS.wl.validateTimesheet = function(value) {
+	if (value == '')
+		// Accept empty string
+		return true;
 	var regex = /^((\d{1,2}(:(00|30))?)(\s*-\s*(\d{1,2}(:(00|30))?))?)(\s*,\s*(\d{1,2}(:(00|30))?)(-(\d{1,2}(:(00|30))?))?)*$/;
 	if (!regex.test(value)) {
 		return false;
@@ -31,7 +34,7 @@ DCMS.wl.validateTimesheet = function(value) {
 		var part = parts[i].trim();
 		if (part.indexOf('-') == -1) {
 			var num = verifyNum(part);
-			if (num == -1 || num < 8 || num > 17) {
+			if (num == -1 || num < 7.5 || num > 17) {
 				return false;
 			}
 		} else {

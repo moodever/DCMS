@@ -1,20 +1,20 @@
 Ext.define("DCMS.MainViewPort", {
 	extend : 'Ext.container.Viewport',
-	id : 'mainpanel',
-	layout : {
-		type : 'border'
-	},
+	id : 'mainvp',
+	layout : 'card',
+	activeItem : 0,
 	items : [ {
-		xtype : 'menutree',
-		id : 'menuTree',
-		region : 'west'
-	}, {
-		xtype : 'tabpanel',
-		id : 'maintab',
-		closeAction : 'hide',
-		region : 'center',
+		xtype : 'panel',
+		bodyStyle : {
+			background : 'ddd'
+		},
+		layout : 'border',
 		items : [ {
-			xtype : 'summaryPanel'
+			xtype : 'loginpanel',
+			id : 'loginpanel'
 		} ]
+	}, {
+		xtype : 'mainpanel',
+		id : 'mainpanel'
 	} ]
 });

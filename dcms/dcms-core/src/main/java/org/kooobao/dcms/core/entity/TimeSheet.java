@@ -61,11 +61,23 @@ public class TimeSheet {
 		this.fridayTime = fridayTime;
 	}
 
-	public Boolean[] getMwf() {
+	public Boolean[] getMonday() {
 		return parse(mondayTime);
 	}
 
-	public Boolean[] getTt() {
+	public Boolean[] getTuesday() {
+		return parse(tuesdayTime);
+	}
+
+	public Boolean[] getWednesday() {
+		return parse(tuesdayTime);
+	}
+
+	public Boolean[] getThursday() {
+		return parse(tuesdayTime);
+	}
+
+	public Boolean[] getFriday() {
 		return parse(tuesdayTime);
 	}
 

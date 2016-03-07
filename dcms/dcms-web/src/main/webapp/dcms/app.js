@@ -6,7 +6,8 @@ Ext.Loader.setConfig({
 });
 Ext.require([ 'DCMS.common.DataCollector' ]);
 Ext.require([ 'DCMS.common.DataConv' ]);
-Ext.require([ 'DCMS.MainViewPort', 'DCMS.SummaryPanel', 'DCMS.MenuTree' ]);
+Ext.require([ 'DCMS.MainViewPort', 'DCMS.MainPanel', 'DCMS.LoginPanel',
+		'DCMS.SummaryPanel', 'DCMS.MenuTree' ]);
 Ext.require([ 'DCMS.wl.WaitingListPanel', 'DCMS.wl.WaitingListGrid',
 		'DCMS.wl.NewWaitingEntryWindow', 'DCMS.wl.OfferPositionWindow' ]);
 Ext.require([ 'DCMS.enroll.ManageEnrollmentGrid',
@@ -14,7 +15,9 @@ Ext.require([ 'DCMS.enroll.ManageEnrollmentGrid',
 Ext.require([ 'DCMS.enroll.EnrollmentChartGrid',
 		'DCMS.enroll.EnrollmentChartPanel' ]);
 
-Ext.require([ 'DCMS.enroll.TimesheetPanel', 'DCMS.enroll.TimesheetChildGrid' ]);
+Ext.require([ 'DCMS.enroll.TimesheetChildGrid',
+		'DCMS.enroll.TimesheetDataGrid', 'DCMS.enroll.TimesheetSummaryGrid',
+		'DCMS.enroll.TimesheetPanel' ]);
 
 Ext.require([ 'DCMS.enroll.ProjectionChartGrid',
 		'DCMS.enroll.ProjectionChartPanel' ]);

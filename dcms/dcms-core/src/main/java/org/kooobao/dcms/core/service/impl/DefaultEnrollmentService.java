@@ -595,6 +595,7 @@ public class DefaultEnrollmentService implements EnrollmentService {
 				Enrollment enrollment = new Enrollment();
 
 				enrollment.setChild(child);
+				child.getEnrollments().add(enrollment);
 				enrollment.setContractTo(input.getContractTo());
 				enrollment.setContractFrom(input.getContractFrom());
 				enrollment.setTimeSheet(timeSheet);
@@ -644,18 +645,23 @@ public class DefaultEnrollmentService implements EnrollmentService {
 		ViewTimesheetResultDto result = new ViewTimesheetResultDto();
 
 		String term = Classroom.calculateTerm(new Date());
+		
 		String clsrmName = input.getClassroomName();
 
 		Classroom clsrm = getClassroomDao().findByNameTerm(clsrmName, term);
+		
 		if (clsrm == null) {
 			result.setSuccess(false);
 			result.setErrorMessage("No such classroom");
 			return result;
 		}
+		
 		List<Enrollment> enrollments = getEnrollmentDao()
 				.findActiveInClassroom(clsrm);
+		
 		TimesheetEntryDto[] entryDtos = new TimesheetEntryDto[enrollments
 				.size()];
+		
 		int counter = 0;
 
 		for (Enrollment el : enrollments) {
@@ -665,27 +671,35 @@ public class DefaultEnrollmentService implements EnrollmentService {
 			entryDtos[counter].setChildName(el.getChild().getName());
 			entryDtos[counter].setDateBirth(el.getChild().getDateBirth());
 			entryDtos[counter].setDateType(el.getAttendingMode().name());
-			entryDtos[counter].setMwf(ts.getMwf());
-			entryDtos[counter].setTt(ts.getTt());
+			entryDtos[counter].setMonday(ts.getMonday());
+			entryDtos[counter].setTuesday(ts.getTuesday());
+			entryDtos[counter].setWednesday(ts.getWednesday());
+			entryDtos[counter].setThursday(ts.getThursday());
+			entryDtos[counter].setFriday(ts.getFriday());
 			counter++;
 		}
 
 		TimesheetSummaryDto summary = new TimesheetSummaryDto();
 
-		int mwf[] = new int[20];
-		int tt[] = new int[20];
-		summary.setMwf(mwf);
-		summary.setTt(tt);
-		for (int i = 0; i < mwf.length; i++) {
-			mwf[i] = 0;
-			tt[i] = 0;
+		summary.setMonday(new int[20]);
+		summary.setTuesday(new int[20]);
+		summary.setWednesday(new int[20]);
+		summary.setThursday(new int[20]);
+		summary.setFriday(new int[20]);
+		for (int i = 0; i < summary.getMonday().length; i++) {
+			summary.getMonday()[i] = 0;
+			summary.getTuesday()[i] = 0;
+			summary.getWednesday()[i] = 0;
+			summary.getThursday()[i] = 0;
+			summary.getFriday()[i] = 0;
 		}
 		for (TimesheetEntryDto entry : entryDtos) {
-			for (int i = 0; i < entry.getMwf().length; i++) {
-				mwf[i] += entry.getMwf()[i] ? 1 : 0;
-			}
-			for (int i = 0; i < entry.getTt().length; i++) {
-				tt[i] += entry.getTt()[i] ? 1 : 0;
+			for (int i = 0; i < entry.getMonday().length; i++) {
+				summary.getMonday()[i] += entry.getMonday()[i] ? 1 : 0;
+				summary.getTuesday()[i] += entry.getTuesday()[i] ? 1 : 0;
+				summary.getWednesday()[i] += entry.getWednesday()[i] ? 1 : 0;
+				summary.getThursday()[i] += entry.getThursday()[i] ? 1 : 0;
+				summary.getFriday()[i] += entry.getFriday()[i] ? 1 : 0;
 			}
 		}
 

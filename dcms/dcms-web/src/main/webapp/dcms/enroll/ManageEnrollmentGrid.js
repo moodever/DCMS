@@ -446,7 +446,8 @@ Ext.define('DCMS.enroll.ManageEnrollmentGrid', {
 		WaitingListService.findEnrollmentList({}, {
 			callback : function(result) {
 				if (result.success) {
-					var wl = result.waitingLists;
+					debugger;
+					var wl = result.enrollmentLists;
 					for (var i = 0; i < wl.length; i++) {
 						var wlitem = wl[i];
 						switch (wlitem.affiliation) {

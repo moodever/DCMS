@@ -171,8 +171,9 @@ public class Child extends Entity {
 			return MessageFormat.format("{0} {1}", getFirstName(),
 					getLastName());
 		} else {
-			return MessageFormat.format("{0} {1} {2}", getFirstName(),
-					getMiddleName(), getLastName());
+			return MessageFormat.format("{0} {1}. {2}", getFirstName(),
+					Character.toUpperCase(getMiddleName().charAt(0)),
+					getLastName());
 		}
 	}
 

@@ -1,4 +1,4 @@
-Ext.define('DCMS.enroll.TimesheetDataModel', {
+Ext.define('DCMS.enroll.TimesheetSummaryModel', {
 	extend : 'Ext.data.Model',
 	fields : [ {
 		name : 'data',
@@ -9,16 +9,9 @@ Ext.define('DCMS.enroll.TimesheetDataModel', {
 	} ]
 });
 
-Ext.namespace('DCMS.enroll.TimesheetData');
-DCMS.enroll.TimesheetData.renderer = function(data, index) {
-	if (typeof data[index] === 'boolean')
-		return data[index] ? 'X' : '';
-	return data[index];
-};
-
-Ext.define('DCMS.enroll.TimesheetDataGrid', {
+Ext.define('DCMS.enroll.TimesheetSummaryGrid', {
 	extend : 'Ext.grid.Panel',
-	xtype : 'tstdatagrid',
+	xtype : 'tstsummarygrid',
 	collapsible : false,
 	multiSelect : false,
 	anchor : '100%',
@@ -29,7 +22,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 0);
+			return data[0];
 		}
 	}, {
 		text : '8:00',
@@ -37,7 +30,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 1);
+			return data[1];
 		}
 	}, {
 		text : '8:30',
@@ -45,7 +38,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 2);
+			return data[2];
 		}
 	}, {
 		text : '9:00',
@@ -53,7 +46,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 3);
+			return data[3];
 		}
 	}, {
 		text : '9:30',
@@ -61,7 +54,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 4);
+			return data[4];
 		}
 	}, {
 		text : '10:00',
@@ -69,7 +62,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 5);
+			return data[5];
 		}
 	}, {
 		text : '10:30',
@@ -77,7 +70,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 6);
+			return data[6];
 		}
 	}, {
 		text : '11:00',
@@ -85,7 +78,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 7);
+			return data[7];
 		}
 	}, {
 		text : '11:30',
@@ -93,7 +86,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 8);
+			return data[8];
 		}
 	}, {
 		text : '12:00',
@@ -101,7 +94,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 9);
+			return data[9];
 		}
 	}, {
 		text : '12:30',
@@ -109,7 +102,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 10);
+			return data[10];
 		}
 	}, {
 		text : '13:00',
@@ -117,7 +110,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 11);
+			return data[11];
 		}
 	}, {
 		text : '13:30',
@@ -125,7 +118,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 12);
+			return data[12];
 		}
 	}, {
 		text : '14:00',
@@ -133,7 +126,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 13);
+			return data[13];
 		}
 	}, {
 		text : '14:30',
@@ -141,7 +134,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 14);
+			return data[14];
 		}
 	}, {
 		text : '15:00',
@@ -149,7 +142,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 15);
+			return data[15];
 		}
 	}, {
 		text : '15:30',
@@ -157,7 +150,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 16);
+			return data[16];
 		}
 	}, {
 		text : '16:00',
@@ -165,7 +158,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 17);
+			return data[17];
 		}
 	}, {
 		text : '16:30',
@@ -173,7 +166,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 18);
+			return data[18];
 		}
 	}, {
 		text : '17:00',
@@ -181,7 +174,7 @@ Ext.define('DCMS.enroll.TimesheetDataGrid', {
 		sortable : false,
 		dataIndex : 'data',
 		renderer : function(data) {
-			return DCMS.enroll.TimesheetData.renderer(data, 19);
+			return data[19];
 		}
 	} ]
 });
